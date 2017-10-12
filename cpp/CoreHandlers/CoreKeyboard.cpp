@@ -33,6 +33,9 @@ extern "C" void keyboard_handler_main(void) {
     char keycode;
     char * KeyLine = 0x00;
     
+    int capslock = 0;
+    int shiftpressed = 0;
+
     /* write EOI */
     write_port(0x20, 0x20);
     
@@ -41,6 +44,8 @@ extern "C" void keyboard_handler_main(void) {
     if (status & 0x01) {
         keycode = read_port(KEYBOARD_DATA_PORT);
         
+        if(keycode < 0) return;
+
         if(keycode == 0x0E) {
             
             if(video_position <= OpenedTerminal) return;
@@ -50,11 +55,15 @@ extern "C" void keyboard_handler_main(void) {
             video_position = video_position + 1;
             vidptr[video_position] = 0x07;
             video_position = video_position - 1;
+            
+            KeyPosition = KeyPosition - 1;
+            KeyLine[KeyPosition] = ' ';
+            
             return;
         }
         
         if(keycode == 0x1C) {
-            KeyLine[KeyPosition + 1] = '\0';
+            KeyLine[KeyPosition] = '\0';
             KeyTaker(KeyLine);
             KeyPosition = 0;
             KeyLine = 0x00;
@@ -62,15 +71,22 @@ extern "C" void keyboard_handler_main(void) {
             return;
         }
         
-        if(keycode < 0)
-        return;
+        if(keycode == 0x3A) {
+            if(capslock == 0) { capslock = 1; return; }
+            if(capslock == 1) { capslock = 0; return; }
+            return;
+        }
         
-        KeyLine[KeyPosition] = keyboard_map[keycode];
-        KeyPosition++;
+        if(keycode == 0x2A) {
+            if(shiftpressed == 0) { shiftpressed = 1; return; }
+            if(shiftpressed == 1) { shiftpressed = 0; return; }
+            return;
+        }
         
         if(video_position >= 3840) { CoreVideo.Scroll(); }
-
-        vidptr[video_position++] = keyboard_map[keycode];
-        vidptr[video_position++] = 0x07;
+        
+        if(shiftpressed == 1) { vidptr[video_position++] = keyboard_map_shift[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map_shift[keycode]; KeyPosition++; return; }
+        if(capslock == 0) { vidptr[video_position++] = keyboard_map[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map[keycode]; KeyPosition++; return; }
+        if(capslock == 1) { vidptr[video_position++] = keyboard_map_uppercase[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map_uppercase[keycode]; KeyPosition++; return; }
     }
 }

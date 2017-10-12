@@ -40,7 +40,7 @@ public:
     }
     
     void RunCommand(char * Command) {
-        if(Command[0] == 'h' || 'H' & Command[1] == 'i') {
+        if(Command[0] == 's' && Command[1] == 'c' && Command[2] == 'r' && Command[3] == 'o' && Command[4] == 'l' && Command[5] == 'l' && Command[6] == '\0') {
             CoreVideo.Scroll();
             }
         return;
