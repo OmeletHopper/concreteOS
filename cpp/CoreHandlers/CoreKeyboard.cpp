@@ -12,12 +12,17 @@ extern unsigned int video_position;            // Our position
 
 #include "CoreKeyboard.h"
 #include "../../cpp/CoreBoot/CoreHandlers.h"
+#include "../../cpp/CoreBoot/CoreTerminal.h"
 
 extern "C" int read_port(unsigned int);
 extern "C" void write_port(unsigned int, unsigned int);
 
-int KeyboardHandlerEnabled = 0;
+extern void KeyTaker(char * Keys);
+
 extern int OpenedTerminal;
+
+int KeyboardHandlerEnabled = 0;
+int KeyPosition = 0;
 
 extern "C" void keyboard_handler_main(void) {
     
@@ -26,6 +31,7 @@ extern "C" void keyboard_handler_main(void) {
     extern char * vidptr;               // Video buffer start address
     unsigned char status;
     char keycode;
+    char * KeyLine = 0x00;
     
     /* write EOI */
     write_port(0x20, 0x20);
@@ -47,8 +53,23 @@ extern "C" void keyboard_handler_main(void) {
             return;
         }
         
+        if(keycode == 0x1C) {
+            KeyLine[KeyPosition + 1] = '\0';
+            KeyTaker(KeyLine);
+            KeyPosition = 0;
+            KeyLine = 0x00;
+            KeyLine[0] = ' ';
+            return;
+        }
+        
         if(keycode < 0)
         return;
+        
+        KeyLine[KeyPosition] = keyboard_map[keycode];
+        KeyPosition++;
+        
+        if(video_position >= 3840) { CoreVideo.Scroll(); }
+
         vidptr[video_position++] = keyboard_map[keycode];
         vidptr[video_position++] = 0x07;
     }

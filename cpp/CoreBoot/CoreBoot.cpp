@@ -7,12 +7,16 @@
 
 extern "C" void EnableGDT(), EnableIDT();
 
+extern "C" char keycode;
+
+#include "CoreVideo.h"
 #include "CoreHandlers.h"
 #include "CoreTerminal.h"
+#include "CoreIO.h"
 
 extern "C" void CoreBoot(void) {
     
-    const char * version = "0.0.1";
+    const char * version = "0.0.1 prerelease";
         
     CoreVideo.ClearConsole();
     
@@ -35,16 +39,16 @@ extern "C" void CoreBoot(void) {
     
     CoreVideo.PrintError("Kernel not complete, dropping to internal shell.");
     
-    //while(1) {
-    
-        CoreTerminal.OpenShell();
-        
-        //char * UserInput = CoreIO.GetKeys();
-        
-        //CoreTerminal.RunCommand(UserInput);
-        
-    //}
+    CoreTerminal.OpenShell();
     
     while(1);
+    return;
+}
+
+void KeyTaker(char * Keys) {
+    
+    CoreTerminal.RunCommand(Keys);
+    CoreTerminal.OpenShell();
+    
     return;
 }

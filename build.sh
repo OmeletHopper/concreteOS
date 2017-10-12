@@ -19,7 +19,9 @@ cd ../cpp
 
 i386-elf-g++ -m32 -c ./CoreBoot/CoreBoot.cpp -o ../cppCoreBoot.o
 i386-elf-g++ -m32 -c ./CoreHandlers/CoreKeyboard.cpp -o ../cppCoreKeyboard.o
+i386-elf-g++ -m32 -c ./CoreBoot/CoreVideo.cpp -o ../cppCoreVideo.o
+i386-elf-g++ -m32 -c ./CoreBoot/CoreTerminal.cpp -o ../cppCoreTerminal.o
 
 cd ../
 
-i386-elf-ld -m elf_i386 -T link.ld -o kernel asmCoreBoot.o asmCoreIO.o cppCoreBoot.o cCoreGDT.o cCoreIDT.o cppCoreKeyboard.o
+i386-elf-ld -m elf_i386 -T link.ld -o kernel asmCoreBoot.o asmCoreIO.o cppCoreBoot.o cppCoreVideo.o cppCoreTerminal.o cCoreGDT.o cCoreIDT.o cppCoreKeyboard.o

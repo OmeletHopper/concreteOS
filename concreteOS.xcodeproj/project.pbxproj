@@ -20,6 +20,9 @@
 		0405CBBE1F8E3C4600CD5232 /* CoreTerminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTerminal.h; sourceTree = "<group>"; };
 		045130E41F8D753F00600A0A /* CoreBoot.s */ = {isa = PBXFileReference; explicitFileType = sourcecode.nasm; path = CoreBoot.s; sourceTree = "<group>"; };
 		045130E51F8D77CF00600A0A /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
+		045EC3201F8F0393003E15F5 /* CoreIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreIO.h; sourceTree = "<group>"; };
+		045EC3211F8F8DE0003E15F5 /* CoreVideo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoreVideo.cpp; sourceTree = "<group>"; };
+		045EC3221F900C14003E15F5 /* CoreTerminal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoreTerminal.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -28,8 +31,11 @@
 			children = (
 				04056C341F8D790B00C48572 /* CoreBoot.cpp */,
 				04056C371F8D7D7500C48572 /* CoreVideo.h */,
+				045EC3211F8F8DE0003E15F5 /* CoreVideo.cpp */,
 				04056C421F8DAC4300C48572 /* CoreHandlers.h */,
 				0405CBBE1F8E3C4600CD5232 /* CoreTerminal.h */,
+				045EC3221F900C14003E15F5 /* CoreTerminal.cpp */,
+				045EC3201F8F0393003E15F5 /* CoreIO.h */,
 			);
 			path = CoreBoot;
 			sourceTree = "<group>";
