@@ -42,7 +42,7 @@ public:
     }
     void OpenShell(void) {
         video_colorcode = 0x02;
-        CoreVideo.Print("\n> ");
+        CoreVideo.Print("> ");
         if(video_position >= 3840) { CoreVideo.Scroll(); }
         video_colorcode = 0x07;
         OpenedTerminal = video_position;
@@ -50,14 +50,33 @@ public:
     }
     
     void RunCommand(char * Command) {
-        if(Command[0] == 's' && Command[1] == 'c' && Command[2] == 'r' && Command[3] == 'o' && Command[4] == 'l' && Command[5] == 'l' && Command[6] == '\0') {
+        
+        
+        if((Command[0] == 's' || Command[0] == 'S') &&          // SCROLL
+           (Command[1] == 'c' || Command[1] == 'C') &&
+           (Command[2] == 'r' || Command[2] == 'R') &&
+           (Command[3] == 'o' || Command[3] == 'O') &&
+           (Command[4] == 'l' || Command[4] == 'L') &&
+           (Command[5] == 'l' || Command[5] == 'L') &&
+           (Command[6] == '\0')) {
             CoreVideo.Scroll();
             return;
         }
+        
+        if((Command[0] == 'c' || Command[0] == 'C') &&          // CLEAR
+           (Command[1] == 'l' || Command[1] == 'L') &&
+           (Command[2] == 'e' || Command[2] == 'E') &&
+           (Command[3] == 'a' || Command[3] == 'A') &&
+           (Command[4] == 'r' || Command[4] == 'R') &&
+           (Command[5] == '\0')) {
+            CoreVideo.ClearConsole();
+            return;
+        }
+        
         CoreVideo.Print("\n");
         CommandError("Unknown command '");
         CoreVideo.Print(Command);
-        CoreVideo.PrintLn("'");
+        CoreVideo.PrintLn("'\n");
         video_position = video_position - 160;
         return;
     }
