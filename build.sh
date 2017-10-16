@@ -17,7 +17,7 @@ i386-elf-gcc -m32 -c ./CoreBoot/CoreIDT.c -o ../cCoreIDT.o
 
 cd ../cpp
 
-i386-elf-g++ -m32 -c ./CoreBoot/CoreBoot.cpp -o ../cppCoreBoot.o
+i386-elf-g++ -m32 -I ./CoreBoot -c ./CoreBoot/CoreBoot.cpp -o ../cppCoreBoot.o
 i386-elf-g++ -m32 -c ./CoreHandlers/CoreKeyboard.cpp -o ../cppCoreKeyboard.o
 i386-elf-g++ -m32 -c ./CoreBoot/CoreVideo.cpp -o ../cppCoreVideo.o
 i386-elf-g++ -m32 -c ./CoreBoot/CoreTerminal.cpp -o ../cppCoreTerminal.o
