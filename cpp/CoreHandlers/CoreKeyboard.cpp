@@ -59,6 +59,8 @@ extern "C" void keyboard_handler_main(void) {
             KeyPosition = KeyPosition - 1;
             KeyLine[KeyPosition] = ' ';
             
+            CoreVideo.UpdateCursor();
+            
             return;
         }
         
@@ -85,8 +87,8 @@ extern "C" void keyboard_handler_main(void) {
         
         if(video_position >= 3840) { CoreVideo.Scroll(); }
         
-        if(shiftpressed != 0) { vidptr[video_position++] = keyboard_map_shift[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map_shift[keycode]; KeyPosition++; return; }
-        if(capslock != 1) { vidptr[video_position++] = keyboard_map[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map[keycode]; KeyPosition++; return; }
-        if(capslock != 0) { vidptr[video_position++] = keyboard_map_uppercase[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map_uppercase[keycode]; KeyPosition++; return; }
+        if(shiftpressed != 0) { vidptr[video_position++] = keyboard_map_shift[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map_shift[keycode]; KeyPosition++; CoreVideo.UpdateCursor(); return; }
+        if(capslock != 1) { vidptr[video_position++] = keyboard_map[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map[keycode]; KeyPosition++; CoreVideo.UpdateCursor(); return; }
+        if(capslock != 0) { vidptr[video_position++] = keyboard_map_uppercase[keycode]; vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map_uppercase[keycode]; CoreVideo.UpdateCursor(); KeyPosition++; return; }
     }
 }

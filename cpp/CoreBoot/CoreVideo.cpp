@@ -7,14 +7,31 @@
 
 #include <stdarg.h>
 #include "CoreVideo.h"
+#include "CoreHandlers.h"
 
 char *vidptr = (char*)0xb8000;               // Video buffer start address
 unsigned int video_position = 0;                    // Our position
 unsigned int video_colorcode = 0x07;         // Colorcode
 unsigned int j, i, x, y = 0;                 // 'Temp' variables
 
-void CoreVideo::Newline(void) { video_position = video_position + (160 - video_position % (160)); }
+void CoreVideo::Newline(void) {
     
+    video_position = video_position + (160 - video_position % (160));
+    return;
+}
+
+void CoreVideo::UpdateCursor(void) {
+    
+    unsigned short position = video_position / 2;
+    
+    write_port(0x3D4, 0x0F);
+    write_port(0x3D5, (unsigned char)(position&0xFF));
+    
+    write_port(0x3D4, 0x0E);
+    write_port(0x3D5, (unsigned char)((position>>8)&0xFF));
+    
+}
+
 void CoreVideo::Scroll(void) {
         for(i = 0; i < 25; i++){
             for (j = 0; j < 160; j++){

@@ -17,6 +17,7 @@ class CoreVideo {
 public:
     
     void Newline(void);
+    void UpdateCursor(void);
     void Scroll(void);
     void ClearConsole(void);
     void PrintMessage(const char * str);
