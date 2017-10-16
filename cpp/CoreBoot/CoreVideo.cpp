@@ -67,6 +67,7 @@ void CoreVideo::ClearConsole(void) {
             vidptr[j+1] = 0x07;                 // Attribute for black background
             j = j + 2;
         }
+    video_position = 0;
         return;
     }
     
