@@ -60,6 +60,7 @@ public:
            (Command[5] == 'l' || Command[5] == 'L') &&
            (Command[6] == '\0')) {
             CoreVideo.Scroll();
+            CoreVideo.Print("\n");
             return;
         }
         

@@ -33,14 +33,18 @@ void CoreVideo::UpdateCursor(void) {
 }
 
 void CoreVideo::Scroll(void) {
-        for(i = 0; i < 25; i++){
-            for (j = 0; j < 160; j++){
-                vidptr[i * 160 + j] = vidptr[(i + 1) * 160 + j];
-            }
-        }
-        video_position = video_position - 160;
+    
+    if (video_position <= 160) {
         return;
     }
+    for(i = 0; i < 25; i++){
+        for (j = 0; j < 160; j++){
+            vidptr[i * 160 + j] = vidptr[(i + 1) * 160 + j];
+        }
+    }
+    video_position = video_position - 160;
+    return;
+}
 
 void CoreVideo::PrintOne(const char * str) {
     
@@ -60,7 +64,8 @@ void CoreVideo::PrintOne(const char * str) {
     return;
 }
 void CoreVideo::ClearConsole(void) {
-        
+    
+    
         j = 0;
         while(j < 80 * 25 * 2) {
             vidptr[j] = ' ';                    // Empty character
