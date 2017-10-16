@@ -6,4 +6,4 @@
 //
 
 
-int OpenedTerminal;
+unsigned int OpenedTerminal;

@@ -20,8 +20,6 @@ extern "C" void write_port(unsigned int, unsigned int);
 
 extern void KeyTaker(char * Keys);
 
-extern int OpenedTerminal;
-
 int KeyboardHandlerEnabled = 0;
 int KeyPosition = 0;
 
@@ -34,7 +32,7 @@ extern "C" void keyboard_handler_main(void) {
     char keycode;
     char * KeyLine = 0x00;
     
-    int capslock, shiftpressed = 0;
+    int capslock = 0, shiftpressed = 0;
 
     /* write EOI */
     write_port(0x20, 0x20);

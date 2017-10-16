@@ -14,7 +14,7 @@
 extern unsigned int video_colorcode;
 extern unsigned int video_position;
 
-extern int OpenedTerminal;
+extern unsigned int OpenedTerminal;
 extern int j;
 
 extern char *vidptr;
