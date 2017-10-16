@@ -23,6 +23,7 @@
 		045EC3211F8F8DE0003E15F5 /* CoreVideo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoreVideo.cpp; sourceTree = "<group>"; };
 		045EC3221F900C14003E15F5 /* CoreTerminal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoreTerminal.cpp; sourceTree = "<group>"; };
 		049D56B31F95541A0086F054 /* CoreBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreBoot.h; sourceTree = "<group>"; };
+		04B8C7E91F9566C500031035 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -87,6 +88,7 @@
 		045130DC1F8D74E800600A0A = {
 			isa = PBXGroup;
 			children = (
+				04B8C7E91F9566C500031035 /* Makefile */,
 				0405CBBD1F8E39D000CD5232 /* kernel */,
 				04056C361F8D7AD000C48572 /* link.ld */,
 				045130E51F8D77CF00600A0A /* build.sh */,
