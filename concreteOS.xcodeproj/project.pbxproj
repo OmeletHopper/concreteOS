@@ -16,7 +16,6 @@
 		04056C401F8D99BE00C48572 /* CoreKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreKeyboard.h; sourceTree = "<group>"; };
 		04056C421F8DAC4300C48572 /* CoreHandlers.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = CoreHandlers.h; sourceTree = "<group>"; };
 		0405CBBC1F8E383300CD5232 /* CoreGDT.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CoreGDT.c; sourceTree = "<group>"; };
-		0405CBBD1F8E39D000CD5232 /* kernel */ = {isa = PBXFileReference; lastKnownFileType = file; path = kernel; sourceTree = "<group>"; };
 		0405CBBE1F8E3C4600CD5232 /* CoreTerminal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreTerminal.h; sourceTree = "<group>"; };
 		045130E41F8D753F00600A0A /* CoreBoot.s */ = {isa = PBXFileReference; explicitFileType = sourcecode.nasm; path = CoreBoot.s; sourceTree = "<group>"; };
 		045130E51F8D77CF00600A0A /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
@@ -89,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				04B8C7E91F9566C500031035 /* Makefile */,
-				0405CBBD1F8E39D000CD5232 /* kernel */,
 				04056C361F8D7AD000C48572 /* link.ld */,
 				045130E51F8D77CF00600A0A /* build.sh */,
 				04056C3C1F8D987B00C48572 /* c */,
