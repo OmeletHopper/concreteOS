@@ -31,6 +31,7 @@ extern "C" void CoreBoot(void) {
     
     CoreVideo.PrintError("Kernel not complete, dropping to internal shell.");       // Development not done
     
+    CoreVideo.Print("\n");
     CoreTerminal.OpenShell();                                                       // Opens shell and prints a > as well as sets backspace area
     CoreVideo.UpdateCursor();
     
