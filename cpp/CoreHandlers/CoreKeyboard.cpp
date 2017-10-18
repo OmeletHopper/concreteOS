@@ -42,7 +42,7 @@ extern "C" void keyboard_handler_main(void) {
     if (status & 0x01) {
         keycode = read_port(KEYBOARD_DATA_PORT);
         
-        //if(keycode < 0) return;
+        if(keycode < 0) return;
         if(keycode == 0x0E) {
             
             if(video_position <= OpenedTerminal) return;
@@ -72,13 +72,6 @@ extern "C" void keyboard_handler_main(void) {
             if(capslock != 1) { capslock = 1; return; }
             else if(capslock != 0) { capslock = 0; return; }
             return;
-        }
-        
-        while(keycode == 0x2A) {
-            shiftpressed = 1;
-        }
-        while(keycode == 0x9D) {
-            shiftpressed = 0;
         }
         
         if(video_position >= 3840) { CoreVideo.Scroll(); }

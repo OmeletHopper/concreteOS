@@ -18,7 +18,22 @@ extern "C" void CoreBoot(void) {
     CoreVideo.Print("concreteOS version %c", version);                              // Print version
     CoreVideo.Print("starting boot process on ");
     
-    CoreVideo.Print(CPUvendor());
+    cpuid(0, unused, ebx, unused, unused);
+    switch(ebx) {
+        case 0x756e6547: // Intel
+            video_colorcode = 0x03;
+            CoreVideo.PrintLn("Intel CPU.");
+            video_colorcode = 0x07;
+            break;
+        case 0x68747541: // AMD
+            video_colorcode = 0x04;
+            CoreVideo.PrintLn("AMD CPU.");
+            video_colorcode = 0x07;
+            break;
+        default:
+            CoreVideo.PrintLn("Unknown CPU.");
+            break;
+    }
     
     CoreVideo.PrintLn("concreteOS (C) Jonathan Archer 2017.\n");                    // (C) message
     
