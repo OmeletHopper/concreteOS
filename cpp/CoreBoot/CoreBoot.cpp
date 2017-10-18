@@ -7,14 +7,19 @@
 
 #include <CoreBoot.h>
 
-const char * version = "0.0.1 prerelease";                                          // Version
+const char * version = "0.0.2 prerelease";                                          // Version
+
+unsigned long ebx, unused;
 
 extern "C" void CoreBoot(void) {
     
     CoreVideo.ClearConsole();
     
     CoreVideo.Print("concreteOS version %c", version);                              // Print version
-    CoreVideo.PrintLn("starting boot process.");
+    CoreVideo.Print("starting boot process on ");
+    
+    CoreVideo.Print(CPUvendor());
+    
     CoreVideo.PrintLn("concreteOS (C) Jonathan Archer 2017.\n");                    // (C) message
     
     EnableGDT();                                                                    // Enable our GDT
@@ -25,7 +30,7 @@ extern "C" void CoreBoot(void) {
     
     KeyboardHandler.Initialize();                                                   // Enable keyboard
     CoreVideo.PrintMessage("Keyboard driver initialized.");
-    
+        
     KeyboardHandlerEnabled = 1;                                                     // Enable keyboard input
     CoreVideo.PrintMessage("Keyboard input enabled.");
     
