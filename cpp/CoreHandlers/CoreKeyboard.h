@@ -20,7 +20,7 @@ unsigned char keyboard_map[128] =
     't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',    /* Enter key */
     0,            /* 29   - Control */
     'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',    /* 39 */
-    '\'', '`',   '\n',        /* Left shift */
+    '\'', '`',   0,        /* Left shift */
     '\\', 'z', 'x', 'c', 'v', 'b', 'n',            /* 49 */
     'm', ',', '.', '/',   0,                /* Right shift */
     '*',
