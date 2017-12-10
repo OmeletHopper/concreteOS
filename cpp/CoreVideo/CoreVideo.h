@@ -10,6 +10,8 @@ using namespace std;
 #ifndef CoreVideo_h
 #define CoreVideo_h
 
+extern unsigned int video_colorcode;
+
 class CoreVideo {
 
 public:
