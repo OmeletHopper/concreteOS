@@ -21,9 +21,9 @@ extern "C" void write_port(unsigned int, unsigned int);
 using namespace std;
 
 class KeyboardHandler {
-    
+
 public:
-        
+
     void Initialize(void)
     {
         /* 0xFD is 11111101 - enables only IRQ1 (keyboard)*/

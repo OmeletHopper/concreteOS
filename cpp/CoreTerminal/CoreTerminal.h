@@ -20,16 +20,16 @@ extern int j;
 extern char *vidptr;
 
 class CoreTerminal {
-    
+
 public:
-    
+
     void CommandError(const char * str) {
         video_colorcode = 0x04;
         CoreVideo.PrintOne("[ ERROR ] ");
         video_colorcode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
-            
+
             if (str[j] == '\n') { CoreVideo.Newline(); j++; }
             else {
                 vidptr[video_position] = str[j];
@@ -48,9 +48,9 @@ public:
         OpenedTerminal = video_position;
         return;
     }
-    
+
     void RunCommand(char * Command) {
-        
+
         if((Command[0] == 's' || Command[0] == 'S') &&          // SCROLL
            (Command[1] == 'c' || Command[1] == 'C') &&
            (Command[2] == 'r' || Command[2] == 'R') &&
@@ -62,7 +62,7 @@ public:
             CoreVideo.Newline();
             return;
         }
-        
+
         if((Command[0] == 'c' || Command[0] == 'C') &&          // CLEAR
            (Command[1] == 'l' || Command[1] == 'L') &&
            (Command[2] == 'e' || Command[2] == 'E') &&
@@ -72,7 +72,7 @@ public:
             CoreVideo.ClearConsole();
             return;
         }
-		
+
 	    if((Command[0] == 'e' || Command[0] == 'E') &&          // ECHO
            (Command[1] == 'c' || Command[1] == 'C') &&
            (Command[2] == 'h' || Command[2] == 'H') &&
@@ -90,12 +90,12 @@ public:
 				CoreVideo.Newline();
 				return;
         }
-        
+
 		if(Command[0] == '\0') {        // Nothing does nothing
 			CoreVideo.Newline();
             return;
         }
-		
+
         CoreVideo.Print("\n");
         CommandError("Unknown command '");
         CoreVideo.Print(Command);
@@ -103,7 +103,7 @@ public:
         video_position = video_position - 160;
         return;
     }
-    
+
 };
 
 static CoreTerminal CoreTerminal;
