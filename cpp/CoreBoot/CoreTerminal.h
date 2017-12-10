@@ -51,7 +51,6 @@ public:
     
     void RunCommand(char * Command) {
         
-        
         if((Command[0] == 's' || Command[0] == 'S') &&          // SCROLL
            (Command[1] == 'c' || Command[1] == 'C') &&
            (Command[2] == 'r' || Command[2] == 'R') &&
@@ -60,7 +59,7 @@ public:
            (Command[5] == 'l' || Command[5] == 'L') &&
            (Command[6] == '\0')) {
             CoreVideo.Scroll();
-            CoreVideo.Print("\n");
+            CoreVideo.Newline();
             return;
         }
         
@@ -73,7 +72,30 @@ public:
             CoreVideo.ClearConsole();
             return;
         }
+		
+	    if((Command[0] == 'e' || Command[0] == 'E') &&          // ECHO
+           (Command[1] == 'c' || Command[1] == 'C') &&
+           (Command[2] == 'h' || Command[2] == 'H') &&
+           (Command[3] == 'o' || Command[3] == 'O') &&
+           (Command[4] == ' ')) {
+			   CoreVideo.Newline();
+                if(video_position >= 3840) { CoreVideo.Scroll(); }
+				j = 5;
+				while(Command[j] != '\0') {                             // While not terminating character
+					vidptr[video_position] = Command[j];
+					vidptr[video_position+1] = video_colorcode;     // Color attribute
+					++j;                                            // Increment
+					video_position = video_position + 2;            // Also increment, count for attribute byte
+			}
+				CoreVideo.Newline();
+				return;
+        }
         
+		if(Command[0] == '\0') {        // Nothing does nothing
+			CoreVideo.Newline();
+            return;
+        }
+		
         CoreVideo.Print("\n");
         CommandError("Unknown command '");
         CoreVideo.Print(Command);
