@@ -13,9 +13,9 @@ all:
 	-mkdir bin
 
 	$(ASM_C) assembly/CoreBoot/CoreBoot.s -o objects/asmCoreBoot.o $(ASM_FLAGS)
-	$(ASM_C) $(ASM_FLAGS) assembly/CoreBoot/CoreIO.s -o objects/asmCoreIO.o
-	$(C_C) c/CoreBoot/CoreGDT.c -o objects/cCoreGDT.o $(C_FLAGS)
-	$(C_C) c/CoreBoot/CoreIDT.c -o objects/cCoreIDT.o $(C_FLAGS)
+	$(ASM_C) $(ASM_FLAGS) assembly/CoreIO/CoreIO.s -o objects/asmCoreIO.o
+	$(C_C) c/CoreGDT/CoreGDT.c -o objects/cCoreGDT.o $(C_FLAGS)
+	$(C_C) c/CoreIDT/CoreIDT.c -o objects/cCoreIDT.o $(C_FLAGS)
 	$(CPP_C) cpp/CoreBoot/CoreBoot.cpp -o objects/cppCoreBoot.o $(CPP_FLAGS) $(CPP_LIBS)
 	$(CPP_C) cpp/CoreKeyboard/CoreKeyboard.cpp -o objects/cppCoreKeyboard.o $(CPP_FLAGS) $(CPP_LIBS)
 	$(CPP_C) cpp/CoreVideo/CoreVideo.cpp -o objects/cppCoreVideo.o $(CPP_FLAGS) $(CPP_LIBS)
