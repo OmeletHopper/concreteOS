@@ -5,17 +5,15 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <stdarg.h>
-
 using namespace std;
 
 #ifndef CoreVideo_h
 #define CoreVideo_h
 
 class CoreVideo {
-    
+
 public:
-    
+
     void Newline(void);
     void UpdateCursor(void);
     void Scroll(void);
@@ -25,7 +23,7 @@ public:
     void PrintOne(const char * str);
     void Print(const char * str, ...);
     void PrintLn(const char * str, ...);
-    
+
 };
 
 static CoreVideo CoreVideo;    // 'Enables' class for use in other functions
