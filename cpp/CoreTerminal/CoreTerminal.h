@@ -7,15 +7,8 @@
 
 #ifndef CoreTerminal_h
 #define CoreTerminal_h
-#endif /* CoreTerminal_h */
-
-extern unsigned int video_colorcode;
-extern unsigned int video_position;
 
 extern unsigned int OpenedTerminal;
-extern int j;
-
-extern char *vidptr;
 
 class CoreTerminal {
 
@@ -28,3 +21,5 @@ public:
 };
 
 static CoreTerminal CoreTerminal;
+
+#endif /* CoreTerminal_h */
