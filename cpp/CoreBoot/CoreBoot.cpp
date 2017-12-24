@@ -18,7 +18,7 @@ extern "C" void CoreBoot(void) {
     CoreVideo.Print(" starting boot process on ");
 
     CoreVideo.Print(DetectCPU.VendorString());
-    CoreVideo.Print(" CPU.");
+    CoreVideo.Print(" CPU.\n");
 
     CoreVideo.PrintLn("concreteOS (C) Jonathan Archer 2017.\n");
 
