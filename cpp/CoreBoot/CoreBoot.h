@@ -12,10 +12,9 @@ extern "C" void EnableGDT(), EnableIDT();
 
 extern "C" char keycode;
 
-#include "CoreVideo.h"          // Video 80x25
-#include "CoreHandlers.h"       // 'Driver' related
-#include "CoreTerminal.h"       // Shell stuff
-
-#define cpuid(in, a, b, c, d) __asm__("cpuid": "=a" (a), "=b" (b), "=c" (c), "=d" (d) : "a" (in));
+#include <CoreVideo.h>          // Video 80x25
+#include <CoreHandlers.h>       // 'Driver' related
+#include <CoreTerminal.h>       // Shell stuff
+#include <DetectCPU.hpp>    // So we can detect our CPU
 
 #endif /* CoreBoot_h */
