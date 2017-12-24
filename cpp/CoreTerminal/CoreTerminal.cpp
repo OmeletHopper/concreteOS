@@ -19,7 +19,7 @@ extern char *vidptr;
 
     void CoreTerminal::CommandError(const char * str) {
         video_colorcode = 0x04;
-        CoreVideo.PrintOne("[ ERROR ] ");
+        CoreVideo.Print("[ ERROR ] ");
         video_colorcode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
