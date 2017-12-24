@@ -46,23 +46,6 @@ void CoreVideo::Scroll(void) {
     return;
 }
 
-void CoreVideo::PrintOne(const char * str) {
-
-    if(video_position >= 3840) { Scroll(); }
-
-    j = 0;
-    while(str[j] != '\0') {                             // While not terminating character
-
-        if (str[j] == '\n') { Newline(); j++; }
-        else {
-            vidptr[video_position] = str[j];
-            vidptr[video_position+1] = video_colorcode;     // Color attribute
-            ++j;                                            // Increment
-            video_position = video_position + 2;            // Also increment, count for attribute byte
-        }
-    }
-    return;
-}
 void CoreVideo::ClearConsole(void) {
 
 
@@ -79,7 +62,7 @@ void CoreVideo::ClearConsole(void) {
 
 void CoreVideo::PrintMessage(const char * str) {
         video_colorcode = 0x02;
-        PrintOne("[ OK ] ");
+        Print("[ OK ] ");
         video_colorcode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
@@ -99,7 +82,7 @@ void CoreVideo::PrintMessage(const char * str) {
 
 void CoreVideo::PrintError(const char * str) {
         video_colorcode = 0x04;
-        PrintOne("[ ERROR ] ");
+        Print("[ ERROR ] ");
         video_colorcode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
@@ -117,28 +100,13 @@ void CoreVideo::PrintError(const char * str) {
     }
 
 
-void CoreVideo::Print(const char * str, ...) {
+void CoreVideo::Print(const char * str) {
 
         if(video_position >= 3840) { Scroll(); }
-
-        unsigned int i;
-
-        va_list arguments;
-        va_start(arguments, str);
 
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
-            if (str[j] == '%') {
-                j++;
-                switch(str[j]) {
-                    case 'c' :
-                        i = j;
-                        i = va_arg(arguments,int);        //Fetch char argument
-                        PrintOne((char *)i);
-                        j = i;
-                }
-            }
             if (str[j] == '\n') { Newline(); j++; }
             else {
                 vidptr[video_position] = str[j];
@@ -147,32 +115,16 @@ void CoreVideo::Print(const char * str, ...) {
                 video_position = video_position + 2;            // Also increment, count for attribute byte
             }
         }
-        va_end(arguments);
         return;
     }
 
-void CoreVideo::PrintLn(const char * str, ...) {
+void CoreVideo::PrintLn(const char * str) {
 
         if(video_position >= 3840) { Scroll(); }
-
-        unsigned int i;
-
-        va_list arguments;
-        va_start(arguments, str);
 
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
-            if (str[j] == '%') {
-                j++;
-                switch(str[j]) {
-                    case 'c' :
-                        i = j;
-                        i = va_arg(arguments,int);        //Fetch char argument
-                        CoreVideo::Print((char *)i);
-                        j = i;
-                }
-            }
             if (str[j] == '\n') { Newline(); j++; }
             else {
                 vidptr[video_position] = str[j];
@@ -182,7 +134,6 @@ void CoreVideo::PrintLn(const char * str, ...) {
             }
 
         }
-        va_end(arguments);
         Newline();
         return;
     }

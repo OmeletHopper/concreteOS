@@ -23,8 +23,8 @@ public:
     void PrintMessage(const char * str);
     void PrintError(const char * str);
     void PrintOne(const char * str);
-    void Print(const char * str, ...);
-    void PrintLn(const char * str, ...);
+    void Print(const char * str);
+    void PrintLn(const char * str);
 
 };
 
