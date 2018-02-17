@@ -1,4 +1,4 @@
-# concreteOS
+# concreteOS [![Build Status](https://travis-ci.org/OmeletHopper/concreteOS.svg?branch=master)](https://travis-ci.org/OmeletHopper/concreteOS)
 An open source OS I'm making, basically a combination of all my other attempts at OS dev converted into C++ and with actual source structure instead of 10 files in the same directory.
 
 ## Compiling
