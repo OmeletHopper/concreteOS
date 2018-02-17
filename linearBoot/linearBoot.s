@@ -1,5 +1,5 @@
 ;
-;  CoreBoot.s
+;  linearBoot.s
 ;  concreteOS
 ;
 ;  Created by Jonathan Archer on 10/10/17.

@@ -10,10 +10,10 @@
 
 extern unsigned int video_position;            // Our position
 
-#include <CoreKeyboard.h>
-#include <CoreHandlers.h>
-#include <CoreVideo.h>
-#include <CoreTerminal.h>
+#include <keyMaps.h>
+#include <handlers.hpp>
+#include <graphics.hpp>
+#include <shell.hpp>
 
 extern "C" int read_port(unsigned int);
 extern "C" void write_port(unsigned int, unsigned int);

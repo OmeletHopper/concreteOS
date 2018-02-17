@@ -6,8 +6,8 @@
 //
 
 #include <stdarg.h>
-#include <CoreVideo.h>
-#include <CoreHandlers.h>
+#include <graphics.hpp>
+#include <handlers.hpp>
 
 char *vidptr = (char*)0xb8000;               // Video buffer start address
 unsigned int video_position = 0;                    // Our position
