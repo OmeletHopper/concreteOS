@@ -1,5 +1,5 @@
 //
-//  CoreKeyboard.h
+//  keyMaps.h
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/10/17.
@@ -130,4 +130,3 @@ unsigned char keyboard_map_shift[128] =
     0,    /* F12 Key */
     0,    /* All other keys are undefined */
 };
-

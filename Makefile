@@ -17,7 +17,6 @@ all: CPU graphics handling linearBoot shell
 	shell/shell.o
 
 clean: clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
-	-rm -rf objects
 
 clean-binaries:
 	-rm -rf bin

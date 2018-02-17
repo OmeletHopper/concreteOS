@@ -1,5 +1,5 @@
 //
-//  DetectCPU.hpp
+//  CPU.hpp
 //  concreteOS
 //
 //  Created by Jonathan Archer on 12/23/17.
