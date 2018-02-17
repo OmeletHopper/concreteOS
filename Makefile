@@ -1,12 +1,8 @@
-CPP_C = g++ -c
-C_C = gcc -c
-ASM_C = nasm
-EXEC = kernel
-CPP_FLAGS = -Wall -m32 -fno-stack-protector
-C_FLAGS = -Wall -m32 -fno-stack-protector
-ASM_FLAGS = -f elf32
-CPP_LIBS = -I cpp/CoreBoot -I cpp/CoreHandlers -I cpp/CoreKeyboard -I cpp/CoreTerminal -I cpp/CoreVideo -I cpp/DetectCPU
-OBJ = objects/
+BIN			:= concreteOS.elf
+
+LD			:= ld
+LFLAGS	:= -m elf_i386 -T link.ld -o bin/$(BIN)
+
 
 .PHONY: all CPU graphics handling linearBoot shell
 
@@ -20,7 +16,7 @@ all: CPU graphics handling linearBoot shell
 	linearBoot/linearBoot.o \
 	shell/shell.o
 
-clean: clean-linearBoot
+clean: clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
 	-rm -rf objects
 
 clean-binaries:
