@@ -1,11 +1,11 @@
 //
-//  CoreBoot.c
+//  linearBoot.cpp
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <CoreBoot.h>
+#include <linearBoot.h>
 
 const char * version = "0.0.2 prerelease";  // Version
 

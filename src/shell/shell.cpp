@@ -1,12 +1,12 @@
 //
-//  CoreTerminal.cpp
+//  shell.cpp
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/12/17.
 //
 
-#include <CoreVideo.h>
-#include <CoreTerminal.h>
+#include <graphics.hpp>
+#include <shell.hpp>
 
 unsigned int OpenedTerminal;
 

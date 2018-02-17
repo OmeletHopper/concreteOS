@@ -1,13 +1,13 @@
 //
-//  CoreVideo.cpp
+//  graphics.cpp
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/12/17.
 //
 
 #include <stdarg.h>
-#include <CoreVideo.h>
-#include <CoreHandlers.h>
+#include <graphics.hpp>
+#include <handlers.hpp>
 
 char *vidptr = (char*)0xb8000;               // Video buffer start address
 unsigned int video_position = 0;                    // Our position

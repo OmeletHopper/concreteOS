@@ -1,11 +1,11 @@
 //
-//  DetectCPU.cpp
+//  CPU.cpp
 //  concreteOS
 //
 //  Created by Jonathan Archer on 12/23/17.
 //
 
-#include <DetectCPU.hpp>
+#include <CPU.hpp>
 
 const char * DetectCPU::VendorString()
 {
