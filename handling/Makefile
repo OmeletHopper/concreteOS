@@ -1,13 +1,5 @@
-CC			:= g++ -c
-GCC			:= gcc -c
-CFLAGS	:= -Wall -m32 -fno-stack-protector
-CFLAGS	+= -I ../includes
-
-AS			:= nasm
-AFLAGS	:= -f elf32
-
-LD			:= ld
-LFLAGS	:= -m elf_i386 -r -o handling.o
+NAME		:= handling
+include ../configuration.mk
 
 all:
 	$(GCC) GDT.c -o GDT.o $(CFLAGS)
