@@ -13,4 +13,7 @@ I recommend testing with QEMU. It's fast, easy, and good enough for me. If you h
 ```
 qemu-system-i386 -kernel /bin/concreteOS.elf
 ```
-or wherever you have your kernel.
+or replace /bin/concreteOS.elf with wherever you have your kernel.
+
+## Contributing
+If you want to contribute, that is amazing. You should check out the To-Do list, and maybe start with something there. Also, if you see flaws in code, or better ways to implement things, pull requests are very welcome.
