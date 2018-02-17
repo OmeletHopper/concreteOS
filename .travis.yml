@@ -15,6 +15,6 @@ addons:
     packages:
     - gcc-6.4
     - g++-6.4
-    - nasm-2.13
+    - nasm
 
 after_success:
