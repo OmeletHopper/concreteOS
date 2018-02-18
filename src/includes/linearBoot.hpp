@@ -1,5 +1,5 @@
 //
-//  linearBoot.h
+//  linearBoot.hpp
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/16/17.
@@ -9,8 +9,9 @@
 #define CoreBoot_h
 
 extern "C" void EnableGDT(), EnableIDT();
+extern void KeyTaker(char * Keys);
 
-extern "C" char keycode;
+extern "C" char keyCode;
 
 #include <graphics.hpp>          // Video 80x25
 #include <handlers.hpp>       // 'Driver' related
