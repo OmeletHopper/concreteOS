@@ -7,13 +7,13 @@
 
 #include <linearBoot.hpp>
 
-const char * version = "0.0.2 prerelease";  // Version
+const char * version = "v0.0.3 prerelease";  // Version
 
 extern "C" void CoreBoot(void) {
 
     CoreVideo.ClearConsole();
 
-    CoreVideo.Print("concreteOS version ");
+    CoreVideo.Print("concreteOS ");
     CoreVideo.Print(version); // Print version
     CoreVideo.Print(" starting boot process on ");
 
