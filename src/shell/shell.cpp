@@ -10,36 +10,36 @@
 
 unsigned int OpenedTerminal;
 
-extern unsigned int video_colorcode;
-extern unsigned int video_position;
+extern unsigned int colorCode;
+extern unsigned int videoPosition;
 
 extern int j;
 
-extern char *vidptr;
+extern char *videoBaseAddress;
 
     void CoreTerminal::CommandError(const char * str) {
-        video_colorcode = 0x04;
+        colorCode = 0x04;
         CoreVideo.Print("[ ERROR ] ");
-        video_colorcode = 0x07;
+        colorCode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
             if (str[j] == '\n') { CoreVideo.Newline(); j++; }
             else {
-                vidptr[video_position] = str[j];
-                vidptr[video_position+1] = video_colorcode;     // Color attribute
+                videoBaseAddress[videoPosition] = str[j];
+                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
                 ++j;                                            // Increment
-                video_position = video_position + 2;            // Also increment, count for attribute byte
+                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
             }
         }
         return;
     }
     void CoreTerminal::OpenShell(void) {
-        video_colorcode = 0x02;
+        colorCode = 0x02;
         CoreVideo.Print("> ");
-        if(video_position >= 3840) { CoreVideo.Scroll(); }
-        video_colorcode = 0x07;
-        OpenedTerminal = video_position;
+        if(videoPosition >= 3840) { CoreVideo.Scroll(); }
+        colorCode = 0x07;
+        OpenedTerminal = videoPosition;
         return;
     }
 
@@ -76,13 +76,13 @@ extern char *vidptr;
            (Command[j+3] == 'o' || Command[j+3] == 'O') &&
            (Command[j+4] == ' ')) {
 			   CoreVideo.Newline();
-                if(video_position >= 3840) { CoreVideo.Scroll(); }
+                if(videoPosition >= 3840) { CoreVideo.Scroll(); }
 				j = 5;
 				while(Command[j] != '\0') {                             // While not terminating character
-					vidptr[video_position] = Command[j];
-					vidptr[video_position+1] = video_colorcode;     // Color attribute
+					videoBaseAddress[videoPosition] = Command[j];
+					videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
 					++j;                                            // Increment
-					video_position = video_position + 2;            // Also increment, count for attribute byte
+					videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
 			}
 				CoreVideo.Newline();
 				return;
@@ -97,6 +97,6 @@ extern char *vidptr;
         CommandError("Unknown command '");
         CoreVideo.Print(Command);
         CoreVideo.PrintLn("'\n");
-        video_position = video_position - 160;
+        videoPosition = videoPosition - 160;
         return;
     }

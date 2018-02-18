@@ -5,7 +5,7 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <linearBoot.h>
+#include <linearBoot.hpp>
 
 const char * version = "0.0.2 prerelease";  // Version
 

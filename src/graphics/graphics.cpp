@@ -9,20 +9,20 @@
 #include <graphics.hpp>
 #include <handlers.hpp>
 
-char *vidptr = (char*)0xb8000;               // Video buffer start address
-unsigned int video_position = 0;                    // Our position
-unsigned int video_colorcode = 0x07;         // Colorcode
+char *videoBaseAddress = (char*)0xb8000;               // Video buffer start address
+unsigned int videoPosition = 0;                    // Our position
+unsigned int colorCode = 0x07;         // Colorcode
 unsigned int j, i, x, y = 0;                 // 'Temp' variables
 
 void CoreVideo::Newline(void) {
 
-    video_position = video_position + (160 - video_position % (160));
+    videoPosition = videoPosition + (160 - videoPosition % (160));
     return;
 }
 
 void CoreVideo::UpdateCursor(void) {
 
-    unsigned short position = video_position / 2;
+    unsigned short position = videoPosition / 2;
 
     write_port(0x3D4, 0x0F);
     write_port(0x3D5, (unsigned char)(position&0xFF));
@@ -34,15 +34,15 @@ void CoreVideo::UpdateCursor(void) {
 
 void CoreVideo::Scroll(void) {
 
-    if (video_position <= 160) {
+    if (videoPosition <= 160) {
         return;
     }
     for(i = 0; i < 25; i++){
         for (j = 0; j < 160; j++){
-            vidptr[i * 160 + j] = vidptr[(i + 1) * 160 + j];
+            videoBaseAddress[i * 160 + j] = videoBaseAddress[(i + 1) * 160 + j];
         }
     }
-    video_position = video_position - 160;
+    videoPosition = videoPosition - 160;
     return;
 }
 
@@ -51,28 +51,28 @@ void CoreVideo::ClearConsole(void) {
 
         j = 0;
         while(j < 80 * 25 * 2) {
-            vidptr[j] = ' ';                    // Empty character
-            vidptr[j+1] = 0x07;                 // Attribute for black background
+            videoBaseAddress[j] = ' ';                    // Empty character
+            videoBaseAddress[j+1] = 0x07;                 // Attribute for black background
             j = j + 2;
         }
-    video_position = 0;
+    videoPosition = 0;
         return;
     }
 
 
 void CoreVideo::PrintMessage(const char * str) {
-        video_colorcode = 0x02;
+        colorCode = 0x02;
         Print("[ OK ] ");
-        video_colorcode = 0x07;
+        colorCode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
             if (str[j] == '\n') { Newline(); j++; }
             else {
-                vidptr[video_position] = str[j];
-                vidptr[video_position+1] = video_colorcode;     // Color attribute
+                videoBaseAddress[videoPosition] = str[j];
+                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
                 ++j;                                            // Increment
-                video_position = video_position + 2;            // Also increment, count for attribute byte
+                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
             }
         }
         Newline();
@@ -81,18 +81,18 @@ void CoreVideo::PrintMessage(const char * str) {
 
 
 void CoreVideo::PrintError(const char * str) {
-        video_colorcode = 0x04;
+        colorCode = 0x04;
         Print("[ ERROR ] ");
-        video_colorcode = 0x07;
+        colorCode = 0x07;
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
             if (str[j] == '\n') { Newline(); j++; }
             else {
-                vidptr[video_position] = str[j];
-                vidptr[video_position+1] = video_colorcode;     // Color attribute
+                videoBaseAddress[videoPosition] = str[j];
+                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
                 ++j;                                            // Increment
-                video_position = video_position + 2;            // Also increment, count for attribute byte
+                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
             }
         }
         Newline();
@@ -102,17 +102,17 @@ void CoreVideo::PrintError(const char * str) {
 
 void CoreVideo::Print(const char * str) {
 
-        if(video_position >= 3840) { Scroll(); }
+        if(videoPosition >= 3840) { Scroll(); }
 
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
             if (str[j] == '\n') { Newline(); j++; }
             else {
-                vidptr[video_position] = str[j];
-                vidptr[video_position+1] = video_colorcode;     // Color attribute
+                videoBaseAddress[videoPosition] = str[j];
+                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
                 ++j;                                            // Increment
-                video_position = video_position + 2;            // Also increment, count for attribute byte
+                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
             }
         }
         return;
@@ -120,17 +120,17 @@ void CoreVideo::Print(const char * str) {
 
 void CoreVideo::PrintLn(const char * str) {
 
-        if(video_position >= 3840) { Scroll(); }
+        if(videoPosition >= 3840) { Scroll(); }
 
         j = 0;
         while(str[j] != '\0') {                             // While not terminating character
 
             if (str[j] == '\n') { Newline(); j++; }
             else {
-                vidptr[video_position] = str[j];
-                vidptr[video_position+1] = video_colorcode;     // Color attribute
+                videoBaseAddress[videoPosition] = str[j];
+                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
                 ++j;                                            // Increment
-                video_position = video_position + 2;            // Also increment, count for attribute byte
+                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
             }
 
         }
