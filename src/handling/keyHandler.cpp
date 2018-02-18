@@ -21,51 +21,74 @@ extern "C" void keyboardHandlerMain(void) {
   write_port(0x20, 0x20);
 
   status = read_port(KEYBOARD_STATUS_PORT);
-  
+
   /* Lowest bit of status will be set if buffer is not empty */
   if (status & 0x01) {
 
     char * keyLine = 0x00;
-    char keyCode = read_port(KEYBOARD_DATA_PORT);
+    unsigned char keyCode = read_port(KEYBOARD_DATA_PORT);
+
+    if(keyCode == LSHIFT_DOWN) {
+      caseState++;
+      return;
+    }
+
+    if(keyCode == LSHIFT_UP) {
+      caseState--;
+      return;
+    }
+
+    if((keyCode & 128) == 128) return;  // If released.
 
     if(keyCode < 0) return;
-    if(keyCode == 0x0E) {
+
+    if(keyCode == BACKSPACE) {
       if(videoPosition <= OpenedTerminal) return;
 
-      videoPosition = videoPosition - 2;
-      videoBaseAddress[videoPosition] = ' ';
-      videoPosition = videoPosition + 1;
+      videoPosition--;
       videoBaseAddress[videoPosition] = 0x07;
-      videoPosition = videoPosition - 1;
+      videoPosition--;
+      videoBaseAddress[videoPosition] = ' ';
 
-      keyPosition = keyPosition - 1;
+      keyPosition--;
       keyLine[keyPosition] = ' ';
 
       CoreVideo.UpdateCursor();
       return;
     }
-    else if(keyCode == 0x1C) {
+
+    else if(keyCode == LEFT) {
+      if(videoPosition <= OpenedTerminal) return;
+      videoPosition = videoPosition - 2;
+      keyPosition--;
+      CoreVideo.UpdateCursor();
+      return;
+    }
+
+    else if(keyCode == ENTER) {
       keyLine[keyPosition] = '\0';
       KeyTaker(keyLine);
       keyPosition = 0;
       keyLine = 0x00;
       return;
     }
-    else if(keyCode == 0x3A) {
-      if(caseState != 1) { caseState = 1; return; }
-      else if(caseState == 1) { caseState = 0; return; }
+
+    else if(keyCode == CAPS_LOCK) {
+      if(caseState != 2) { caseState = 2; return; }
+      else if(caseState == 2) { caseState = 0; return; }
       return;
     }
 
     if(videoPosition >= 3840) { CoreVideo.Scroll(); }
 
     /* 90 is the amount in each 'section' of our key map. */
-
     videoBaseAddress[videoPosition++] = keyMap[keyCode + (90 * caseState)];
     videoBaseAddress[videoPosition++] = 0x07;
+    CoreVideo.UpdateCursor();
+
     keyLine[keyPosition] = keyMap[keyCode + (90 * caseState)];
     keyPosition++;
-    CoreVideo.UpdateCursor();
+
     return;
   }
 }
