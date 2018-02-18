@@ -8,8 +8,9 @@
 #include <keyMaps.h>
 #include <linearBoot.hpp>
 
-int keyboardHandlerEnabled = 0;
-int keyPosition = 0;
+int keyboardHandlerEnabled  = 0;
+int keyLinePosition         = 0;
+int keyLineSize             = 0;
 
 int caseState = 0;
 
@@ -50,8 +51,9 @@ extern "C" void keyboardHandlerMain(void) {
       videoPosition--;
       videoBaseAddress[videoPosition] = ' ';
 
-      keyPosition--;
-      keyLine[keyPosition] = ' ';
+      keyLinePosition--;
+      keyLineSize--;
+      keyLine[keyLinePosition] = ' ';
 
       CoreVideo.UpdateCursor();
       return;
@@ -60,15 +62,24 @@ extern "C" void keyboardHandlerMain(void) {
     else if(keyCode == LEFT) {
       if(videoPosition <= OpenedTerminal) return;
       videoPosition = videoPosition - 2;
-      keyPosition--;
+      keyLinePosition--;
+      CoreVideo.UpdateCursor();
+      return;
+    }
+
+    else if(keyCode == RIGHT) {
+      if(keyLinePosition == keyLineSize) return;
+      videoPosition = videoPosition + 2;
+      keyLinePosition++;
       CoreVideo.UpdateCursor();
       return;
     }
 
     else if(keyCode == ENTER) {
-      keyLine[keyPosition] = '\0';
+      keyLine[keyLineSize] = '\0';
       KeyTaker(keyLine);
-      keyPosition = 0;
+      keyLinePosition = 0;
+      keyLineSize = 0;
       keyLine = 0x00;
       return;
     }
@@ -86,8 +97,10 @@ extern "C" void keyboardHandlerMain(void) {
     videoBaseAddress[videoPosition++] = 0x07;
     CoreVideo.UpdateCursor();
 
-    keyLine[keyPosition] = keyMap[keyCode + (90 * caseState)];
-    keyPosition++;
+    keyLine[keyLinePosition] = keyMap[keyCode + (90 * caseState)];
+    keyLinePosition++;
+    if((keyLinePosition - 1) < keyLineSize) return;
+    keyLineSize++;
 
     return;
   }
