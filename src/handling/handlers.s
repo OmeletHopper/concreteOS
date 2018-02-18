@@ -14,7 +14,7 @@ global load_idt
 global keyboard_handler
 
 extern gp            ; Says that '_gp' is in another file
-extern keyboard_handler_main
+extern keyboardHandlerMain
 
 read_port:
 mov edx, [esp + 4]
@@ -46,5 +46,5 @@ sti
 ret
 
 keyboard_handler:
-call    keyboard_handler_main
+call    keyboardHandlerMain
 iretd
