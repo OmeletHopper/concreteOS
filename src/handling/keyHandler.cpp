@@ -50,7 +50,7 @@ extern "C" void keyboardHandlerMain(void) {
       videoPosition--;
       videoBaseAddress[videoPosition] = ' ';
 
-      keyLinePosition, keyLineSize--;
+      keyLinePosition--, keyLineSize--;
       keyLine[keyLinePosition] = ' ';
 
       CoreVideo.UpdateCursor();
