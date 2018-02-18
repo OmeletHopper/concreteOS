@@ -2,13 +2,11 @@ include ./configuration.mk
 
 BIN			:= concreteOS.elf
 
-LFLAGS	:= -m elf_i386 -T link.ld -o bin/$(BIN)
+LFLAGS	:= -m elf_i386 -T link.ld -o ../$(BIN)
 
 .PHONY: all CPU graphics handling linearBoot shell
 
 all: CPU graphics handling linearBoot shell
-	-mkdir bin
-
 	$(LD) $(LFLAGS) \
 	CPU/CPU.o \
 	graphics/graphics.o \
@@ -17,7 +15,7 @@ all: CPU graphics handling linearBoot shell
 	shell/shell.o
 
 test:
-	qemu-system-i386 -kernel ./bin/$(BIN)
+	qemu-system-i386 -kernel ../$(BIN)
 
 clean: clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
 
