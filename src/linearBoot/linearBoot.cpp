@@ -16,7 +16,6 @@ extern "C" void CoreBoot(void)
   CoreVideo.Print("concreteOS ");
   CoreVideo.Print(version); // Print version
   CoreVideo.Print(" starting boot process on ");
-
   CoreVideo.Print(DetectCPU.VendorString());
   CoreVideo.Print(" CPU.\n");
 
@@ -36,7 +35,7 @@ extern "C" void CoreBoot(void)
   Input.addKeySetting = 1; // Set variable to 1, prints text to screen, writes to buffer, and passes to internal shell.
   CoreVideo.PrintMessage("Keyboard input enabled.");
 
-  CoreVideo.Print("\n");
+  CoreVideo.Newline();
   CoreTerminal.OpenShell(); // Opens shell and prints a > as well as sets backspace area
   CoreVideo.UpdateCursor();
 
