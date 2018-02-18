@@ -16,6 +16,9 @@ all: CPU graphics handling linearBoot shell
 	linearBoot/linearBoot.o \
 	shell/shell.o
 
+test:
+	qemu-system-i386 -kernel ./bin/$(BIN)
+
 clean: clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
 
 clean-binaries:
