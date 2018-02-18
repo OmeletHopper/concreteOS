@@ -11,9 +11,20 @@ If you are under Linux, you really shouldn't need special configuration. for Mac
 ## Testing
 I recommend testing with QEMU. It's fast, easy, and good enough for me. If you have it installed, run:
 ```
-qemu-system-i386 -kernel /bin/concreteOS.elf
+make test
 ```
-or replace /bin/concreteOS.elf with wherever you have your kernel.
+or if you have your kernel saved in an alternate location, run
+```
+qemu-system-i386 -kernel /path/to/kernel.elf
+```
+
+## Real Hardware
+If you want to run the kernel on real hardware, IT MUST BE BOOTED FROM BIOS, NOT UEFI. To boot from an existing GRUB2 installation, add this to your ```/boot/grub/grub.cfg``` below your first existing entry:
+```
+menuentry "concreteOS"{
+        multiboot /path/to/your/concreteOS.elf
+}
+```
 
 ## Contributing
 If you want to contribute, that is amazing. You should check out the To-Do list, and maybe start with something there. Also, if you see flaws in code, or better ways to implement things, pull requests are very welcome.
