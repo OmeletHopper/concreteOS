@@ -14,7 +14,7 @@
 #define KEYBOARD_DATA_PORT 0x60
 #define KEYBOARD_STATUS_PORT 0x64
 
-extern int KeyboardHandlerEnabled;
+extern int keyboardHandlerEnabled;
 
 extern "C" int read_port(unsigned int);
 extern "C" void write_port(unsigned int, unsigned int);

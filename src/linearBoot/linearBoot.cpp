@@ -31,7 +31,7 @@ extern "C" void CoreBoot(void) {
     KeyboardHandler.Initialize(); // Enable keyboard
     CoreVideo.PrintMessage("Keyboard driver initialized.");
 
-    KeyboardHandlerEnabled = 1; // Enable keyboard input
+    keyboardHandlerEnabled = 1; // Enable keyboard input
     CoreVideo.PrintMessage("Keyboard input enabled.");
 
     CoreVideo.PrintError("Kernel incomplete, dropping to internal shell."); // Development not done
