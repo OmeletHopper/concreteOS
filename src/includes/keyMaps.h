@@ -11,7 +11,7 @@
 
 #endif /* CoreKeyboard_h */
 
-unsigned char keyboard_map[128] =
+unsigned char keyMap[] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',    /* 9 */
     '9', '0', '-', '=', '\b',    /* Backspace */
@@ -48,11 +48,8 @@ unsigned char keyboard_map[128] =
     0,   0,   0,
     0,    /* F11 Key */
     0,    /* F12 Key */
-    0,    /* All other keys are undefined */
-};
+    0,    /* 89 - All other keys are undefined */
 
-unsigned char keyboard_map_uppercase[128] =
-{
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',    /* 9 */
     '9', '0', '-', '=', '\b',    /* Backspace */
     '\t',            /* Tab */
@@ -89,10 +86,7 @@ unsigned char keyboard_map_uppercase[128] =
     0,    /* F11 Key */
     0,    /* F12 Key */
     0,    /* All other keys are undefined */
-};
 
-unsigned char keyboard_map_shift[128] =
-{
     0,  27, '!', '@', '#', '$', '%', '^', '&', '*',    /* 9 */
     '(', ')', '_', '+', '\b',    /* Backspace */
     '\t',            /* Tab */
