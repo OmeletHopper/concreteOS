@@ -1,15 +1,15 @@
+include ./configuration.mk
+
 BIN			:= concreteOS.elf
 
-LD			:= ld
 LFLAGS	:= -m elf_i386 -T link.ld -o bin/$(BIN)
-
 
 .PHONY: all CPU graphics handling linearBoot shell
 
 all: CPU graphics handling linearBoot shell
 	-mkdir bin
 
-	ld -m elf_i386 -T link.ld -o bin/concreteOS.elf \
+	$(LD) $(LFLAGS) \
 	CPU/CPU.o \
 	graphics/graphics.o \
 	handling/handling.o \
