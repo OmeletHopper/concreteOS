@@ -9,8 +9,8 @@ ifeq ($(OS),Windows_NT)		# If host is Windows, then prefix is i386 elf.
 	PREFIX := i386-elf-
 endif
 
-CC			:= $(PREFIX)g++ -c
-GCC			:= $(PREFIX)gcc -c
+CXX			:= $(PREFIX)g++ -c
+CC			:= $(PREFIX)gcc -c
 CFLAGS	:= -Wall -m32 -fno-stack-protector
 CFLAGS	+= -I ../includes
 
