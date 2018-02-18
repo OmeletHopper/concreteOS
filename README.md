@@ -19,4 +19,4 @@ or replace /bin/concreteOS.elf with wherever you have your kernel.
 If you want to contribute, that is amazing. You should check out the To-Do list, and maybe start with something there. Also, if you see flaws in code, or better ways to implement things, pull requests are very welcome.
 
 ## Credits
-Thanks to those at [osDEV](https://wiki.osdev.org) for everything on their site, without it projects like these wouldn't exist. Code written by Jon Archer.
+Thanks to those at [osdev.org](https://wiki.osdev.org) for everything on their site, without it projects like these wouldn't exist. Code written by Jon Archer.
