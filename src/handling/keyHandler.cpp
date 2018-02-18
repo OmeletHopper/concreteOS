@@ -5,14 +5,13 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <keyMaps.h>
+#include <keyboard.h>
 #include <linearBoot.hpp>
 
 int keyboardHandlerEnabled  = 0;
 int keyLinePosition         = 0;
 int keyLineSize             = 0;
-
-int caseState = 0;
+int caseState               = 0;
 
 extern "C" void keyboardHandlerMain(void) {
   if(keyboardHandlerEnabled != 1) { return; }
@@ -51,8 +50,7 @@ extern "C" void keyboardHandlerMain(void) {
       videoPosition--;
       videoBaseAddress[videoPosition] = ' ';
 
-      keyLinePosition--;
-      keyLineSize--;
+      keyLinePosition, keyLineSize--;
       keyLine[keyLinePosition] = ' ';
 
       CoreVideo.UpdateCursor();

@@ -1,5 +1,5 @@
 //
-//  keyMaps.h
+//  keyboard.h
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/10/17.
@@ -8,6 +8,9 @@
 #ifndef CoreKeyboard_h
 
 #define CoreKeyboard_h
+
+#define KEYBOARD_DATA_PORT 0x60
+#define KEYBOARD_STATUS_PORT 0x64
 
 #define BACKSPACE   0x0E
 #define TAB         0x0F
