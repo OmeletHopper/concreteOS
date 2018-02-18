@@ -11,8 +11,6 @@
 
 #include <stdarg.h>
 
-extern int keyboardHandlerEnabled;
-
 extern "C" int read_port(unsigned int);
 extern "C" void write_port(unsigned int, unsigned int);
 
