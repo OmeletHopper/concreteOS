@@ -14,13 +14,15 @@ all: CPU graphics handling linearBoot shell
 	linearBoot/linearBoot.o \
 	shell/shell.o
 
-test:
+test: all
 	qemu-system-i386 -kernel ../$(BIN)
+
+clean-all: clean clean-bin
 
 clean: clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
 
-clean-binaries:
-	-rm -rf bin
+clean-bin:
+	-rm -f ../concreteOS.elf
 
 CPU:
 	@$(MAKE) -C CPU
