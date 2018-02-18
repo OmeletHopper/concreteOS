@@ -30,4 +30,4 @@ menuentry "concreteOS" {
 If you want to contribute, that is amazing. You should check out the To-Do list, and maybe start with something there. Also, if you see flaws in code, or better ways to implement things, pull requests are very welcome.
 
 ## Credits
-Thanks to those at [osdev.org](https://wiki.osdev.org) for everything on their site, without it projects like these wouldn't exist. Code written by Jon Archer.
+Thanks to those at [osdev.org](https://wiki.osdev.org) for everything on their site, without it projects like these wouldn't exist. Also thanks to [osdever.net](https://www.osdever.net), and thanks to [Arjun Sreedharan](http://arjunsreedharan.org/) for his kernel tutorials and more. Code written by Jon Archer.
