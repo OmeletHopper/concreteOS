@@ -5,20 +5,8 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#define KEYBOARD_DATA_PORT 0x60
-#define KEYBOARD_STATUS_PORT 0x64
-
-extern unsigned int video_position;            // Our position
-
 #include <keyMaps.h>
-#include <handlers.hpp>
-#include <graphics.hpp>
-#include <shell.hpp>
-
-extern "C" int read_port(unsigned int);
-extern "C" void write_port(unsigned int, unsigned int);
-
-extern void KeyTaker(char * Keys);
+#include <linearBoot.hpp>
 
 int KeyboardHandlerEnabled = 0;
 int KeyPosition = 0;
@@ -26,76 +14,69 @@ int KeyPosition = 0;
 int capslock = 0, shiftpressed = 0;
 
 extern "C" void keyboard_handler_main(void) {
+  if(KeyboardHandlerEnabled != 1) { return; }
+  unsigned char status;
 
-    if(KeyboardHandlerEnabled != 1) { return; }
+  /* Write EOI */
+  write_port(0x20, 0x20);
 
-    extern char * vidptr;               // Video buffer start address
-    unsigned char status;
-    char keycode;
-    char * KeyLine = 0x00;
+  status = read_port(KEYBOARD_STATUS_PORT);
+  /* Lowest bit of status will be set if buffer is not empty */
+  if (status & 0x01) {
 
-    /* write EOI */
-    write_port(0x20, 0x20);
+    char * keyLine = 0x00;
+    char keyCode = read_port(KEYBOARD_DATA_PORT);
 
-    status = read_port(KEYBOARD_STATUS_PORT);
-    /* Lowest bit of status will be set if buffer is not empty */
-    if (status & 0x01) {
-        keycode = read_port(KEYBOARD_DATA_PORT);
+    if(keyCode < 0) return;
+    if(keyCode == 0x0E) {
+      if(videoPosition <= OpenedTerminal) return;
 
-        if(keycode < 0) return;
-        if(keycode == 0x0E) {
+      videoPosition = videoPosition - 2;
+      videoBaseAddress[videoPosition] = ' ';
+      videoPosition = videoPosition + 1;
+      videoBaseAddress[videoPosition] = 0x07;
+      videoPosition = videoPosition - 1;
 
-            if(video_position <= OpenedTerminal) return;
+      KeyPosition = KeyPosition - 1;
+      keyLine[KeyPosition] = ' ';
 
-            video_position = video_position - 2;
-            vidptr[video_position] = ' ';
-            video_position = video_position + 1;
-            vidptr[video_position] = 0x07;
-            video_position = video_position - 1;
-
-            KeyPosition = KeyPosition - 1;
-            KeyLine[KeyPosition] = ' ';
-
-            CoreVideo.UpdateCursor();
-
-            return;
-        }
-        else if(keycode == 0x1C) {
-            KeyLine[KeyPosition] = '\0';
-            KeyTaker(KeyLine);
-            KeyPosition = 0;
-            KeyLine = 0x00;
-            KeyLine[0] = ' ';
-            return;
-        }
-        else if(keycode == 0x3A) {
-            if(capslock != 1) { capslock = 1; return; }
-            else if(capslock != 0) { capslock = 0; return; }
-            return;
-        }
-
-        if(video_position >= 3840) { CoreVideo.Scroll(); }
-
-        if(shiftpressed != 0) {
-            vidptr[video_position++] = keyboard_map_shift[keycode];
-            vidptr[video_position++] = 0x07;
-            KeyLine[KeyPosition] = keyboard_map_shift[keycode];
-            KeyPosition++;
-            CoreVideo.UpdateCursor();
-            return;
-        }
-        else if(capslock != 1) {
-            vidptr[video_position++] = keyboard_map[keycode];
-            vidptr[video_position++] = 0x07; KeyLine[KeyPosition] = keyboard_map[keycode];
-            KeyPosition++; CoreVideo.UpdateCursor(); return;
-        }
-        else if(capslock != 0) {
-            vidptr[video_position++] = keyboard_map_uppercase[keycode];
-            vidptr[video_position++] = 0x07;
-            KeyLine[KeyPosition] = keyboard_map_uppercase[keycode];
-            CoreVideo.UpdateCursor();
-            KeyPosition++;
-            return;
-        }
+      CoreVideo.UpdateCursor();
+      return;
     }
+    else if(keyCode == 0x1C) {
+      keyLine[KeyPosition] = '\0';
+      KeyTaker(keyLine);
+      KeyPosition = 0;
+      keyLine = 0x00;
+      return;
+    }
+    else if(keyCode == 0x3A) {
+      if(capslock != 1) { capslock = 1; return; }
+      else if(capslock != 0) { capslock = 0; return; }
+      return;
+    }
+
+    if(videoPosition >= 3840) { CoreVideo.Scroll(); }
+    if(shiftpressed != 0) {
+      videoBaseAddress[videoPosition++] = keyboard_map_shift[keyCode];
+      videoBaseAddress[videoPosition++] = 0x07;
+      keyLine[KeyPosition] = keyboard_map_shift[keyCode];
+      KeyPosition++;
+      CoreVideo.UpdateCursor();
+      return;
+    }
+    else if(capslock != 1) {
+      videoBaseAddress[videoPosition++] = keyboard_map[keyCode];
+      videoBaseAddress[videoPosition++] = 0x07; keyLine[KeyPosition] = keyboard_map[keyCode];
+      KeyPosition++; CoreVideo.UpdateCursor(); return;
+    }
+    else if(capslock != 0) {
+      videoBaseAddress[videoPosition++] = keyboard_map_uppercase[keyCode];
+      videoBaseAddress[videoPosition++] = 0x07;
+      keyLine[KeyPosition] = keyboard_map_uppercase[keyCode];
+      CoreVideo.UpdateCursor();
+      KeyPosition++;
+      return;
+    }
+  }
 }
