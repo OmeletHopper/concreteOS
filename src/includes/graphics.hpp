@@ -13,6 +13,8 @@ using namespace std;
 extern unsigned int colorCode;
 extern unsigned int videoPosition;
 extern char * videoBaseAddress;
+extern unsigned int i;
+extern unsigned int j;
 
 class CoreVideo {
 
