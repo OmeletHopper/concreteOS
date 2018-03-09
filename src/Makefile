@@ -4,22 +4,29 @@ BIN			:= concreteOS.elf
 
 LFLAGS	:= -m elf_i386 -T link.ld -o ../$(BIN)
 
-.PHONY: all CPU graphics handling linearBoot shell
+.PHONY: all VERSION_HEADER CPU graphics handling linearBoot shell
 
-all: CPU graphics handling linearBoot shell
+all: VERSION_HEADER VERSION_HEADER_CLEAN CPU graphics handling linearBoot shell
 	$(LD) $(LFLAGS) \
 	CPU/CPU.o \
 	graphics/graphics.o \
 	handling/handling.o \
 	linearBoot/linearBoot.o \
 	shell/shell.o
+	@echo Done building version $(VERSION).
+
+VERSION_HEADER: VERSION_HEADER_CLEAN
+	@echo 'const char * version = "$(VERSION)";  // Version' > ./includes/Version.h
+
+VERSION_HEADER_CLEAN:
+	-rm -f ./includes/Version.h
 
 test: all
 	qemu-system-i386 -kernel ../$(BIN)
 
 clean-all: clean clean-bin
 
-clean: clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
+clean: VERSION_HEADER_CLEAN clean-CPU clean-graphics clean-handling clean-linearBoot clean-shell
 
 clean-bin:
 	-rm -f ../concreteOS.elf

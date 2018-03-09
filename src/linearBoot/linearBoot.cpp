@@ -6,8 +6,7 @@
 //
 
 #include <linearBoot.hpp>
-
-const char * version = "v0.0.3 prerelease";  // Version
+#include <Version.h>
 
 extern "C" void CoreBoot(void)
 {

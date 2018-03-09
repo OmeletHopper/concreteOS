@@ -1,13 +1,15 @@
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)		# If host is Linux, then prefix is empty.
-	PREFIX :=
+	PREFIX ?=
 endif
 ifeq ($(UNAME_S),Darwin)	# If host is macOS, then prefix is i386 elf.
-	PREFIX := i386-elf-
+	PREFIX ?= i386-elf-
 endif
 ifeq ($(OS),Windows_NT)		# If host is Windows, then prefix is i386 elf.
-	PREFIX := i386-elf-
+	PREFIX ?= i386-elf-
 endif
+
+VERSION	?= 0.0.3-prerelease
 
 CXX			:= $(PREFIX)g++ -c
 CC			:= $(PREFIX)gcc -c
