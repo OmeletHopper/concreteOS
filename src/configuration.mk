@@ -9,8 +9,17 @@ ifeq ($(OS),Windows_NT)		# If host is Windows, then prefix is i386 elf.
 	PREFIX ?= i386-elf-
 endif
 
-BUILD_NUMBER ?= $(shell git log --pretty=format:'%h' -n 1)
-VERSION	?= 0.0.3-$(BUILD_NUMBER)
+GIT_INFO := $(shell git diff-index --quiet HEAD -- > /dev/null; echo $$?)
+
+ifeq ($(GIT_INFO), 1)
+	BUILD_NUMBER ?= $(shell git log --pretty=format:'%h' -n 1)-dirty
+else
+	BUILD_NUMBER ?= $(shell git log --pretty=format:'%h' -n 1)
+endif
+
+VERSION	?= v0.0.3
+
+VERSION_H := ./includes/version.h
 
 CXX			:= $(PREFIX)g++ -c
 CC			:= $(PREFIX)gcc -c

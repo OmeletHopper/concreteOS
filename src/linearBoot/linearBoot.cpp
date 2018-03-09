@@ -5,8 +5,8 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
+#include <version.h>
 #include <linearBoot.hpp>
-#include <Version.h>
 
 extern "C" void CoreBoot(void)
 {
@@ -14,6 +14,8 @@ extern "C" void CoreBoot(void)
 
   CoreVideo.Print("concreteOS ");
   CoreVideo.Print(version); // Print version
+  CoreVideo.Print("-");
+  CoreVideo.Print(build_number);
   CoreVideo.Print(" starting boot process on ");
   CoreVideo.Print(DetectCPU.VendorString());
   CoreVideo.Print(" CPU.\n");

@@ -16,10 +16,14 @@ all: VERSION_HEADER VERSION_HEADER_CLEAN CPU graphics handling linearBoot shell
 	@echo Done building version $(VERSION).
 
 VERSION_HEADER: VERSION_HEADER_CLEAN
-	@echo 'const char * version = "$(VERSION)";  // Version' > ./includes/Version.h
+	@echo	'#ifndef version_h' > $(VERSION_H)
+	@echo '#define version_h' >> $(VERSION_H)
+	@echo 'const char * version = "$(VERSION)";' >> $(VERSION_H)
+	@echo 'const char * build_number = "$(BUILD_NUMBER)";' >> $(VERSION_H)
+	@echo '#endif /* version_h */' >> $(VERSION_H)
 
 VERSION_HEADER_CLEAN:
-	-rm -f ./includes/Version.h
+	-rm -f $(VERSION_H)
 
 test: all
 	qemu-system-i386 -kernel ../$(BIN)
