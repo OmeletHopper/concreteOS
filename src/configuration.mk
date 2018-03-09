@@ -9,7 +9,8 @@ ifeq ($(OS),Windows_NT)		# If host is Windows, then prefix is i386 elf.
 	PREFIX ?= i386-elf-
 endif
 
-VERSION	?= 0.0.3-prerelease
+BUILD_NUMBER ?= $(shell git log --pretty=format:'%h' -n 1)
+VERSION	?= 0.0.3-$(BUILD_NUMBER)
 
 CXX			:= $(PREFIX)g++ -c
 CC			:= $(PREFIX)gcc -c
