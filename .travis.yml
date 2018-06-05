@@ -5,7 +5,7 @@ before_install:
 install:
 
 script:
-  cd ./src && make
+  make
 
 addons:
   apt:
