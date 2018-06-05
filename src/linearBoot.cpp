@@ -5,7 +5,6 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <version.h>
 #include <linearBoot.hpp>
 
 extern "C" void CoreBoot(void)
@@ -20,7 +19,7 @@ extern "C" void CoreBoot(void)
   CoreVideo.Print(DetectCPU.VendorString());
   CoreVideo.Print(" CPU.\n");
 
-  CoreVideo.PrintLn("concreteOS (C) Jonathan Archer 2017.\n");
+  CoreVideo.PrintLn("concreteOS (C) Jonathan Archer 2018.\n");
 
   EnableGDT();  // Enable our GDT
   CoreVideo.PrintMessage("Global Descriptor Table initialized.");
