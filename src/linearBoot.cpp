@@ -5,7 +5,6 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <version.h>
 #include <linearBoot.hpp>
 
 extern "C" void CoreBoot(void)
