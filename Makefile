@@ -7,7 +7,7 @@ SRC		:= src
 CXX		:= clang -c
 CC		:= clang -c
 CFLAGS		:= -target i386-none-elf
-CFLAGS		:= -Wall -m32 -fno-stack-protector
+CFLAGS		+= -Wall -m32 -fno-stack-protector
 CFLAGS		+= -I $(SRC)/includes
 CFLAGS		+= -D version=\"$(VERSION)\" -D build_number=\"$(BUILD_NUMBER)\"
 CXXFLAGS	:= $(CFLAGS)
@@ -35,10 +35,5 @@ all: $(OBJFILES)
 test: all
 	qemu-system-i386 -kernel ../$(BIN)
 
-clean-all: clean clean-bin
-
 clean:
-	rm -f $(OBJFILES)
-
-clean-bin:
-	-rm -f ../concreteOS.elf
+	rm -f $(OBJFILES) $(KNAME)
