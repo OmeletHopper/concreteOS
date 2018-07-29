@@ -10,7 +10,7 @@ bits 32                     ; 32 Bit code
 global readPort
 global writePort
 global gdtFlush	; Allows the C code to link to this
-global load_idt
+global idtLoad
 global keyboard_handler
 
 extern GdtPtr	; Says that '_gp' is in another file
@@ -39,7 +39,7 @@ jmp 0x08:flush2   ; 0x08 is the offset to our code segment: Far jump!
 flush2:
 ret               ; Returns back to the C code!
 
-load_idt:
+idtLoad:
 mov edx, [esp + 4]
 lidt [edx]
 sti
