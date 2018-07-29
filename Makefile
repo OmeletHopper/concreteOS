@@ -26,14 +26,14 @@ OBJFILES	:= $(patsubst %.s, %.o, \
 		   $(patsubst %.cpp, %.o, \
 		   $(SRCFILES))))
 
-.PHONY: all test clean-all clean clean-bin
+.PHONY: all test clean
 
 all: $(OBJFILES)
 	$(LD) $(LDFLAGS) $(OBJFILES)
 	@echo Done building version $(VERSION).
 
 test: all
-	qemu-system-i386 -kernel ../$(BIN)
+	qemu-system-i386 -kernel $(KNAME)
 
 clean:
 	rm -f $(OBJFILES) $(KNAME)
