@@ -5,8 +5,6 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <stdarg.h>
-
 #ifndef handlers_h
 #define handlers_h
 
@@ -14,8 +12,8 @@
 extern "C" {
 #endif
 
-int read_port(unsigned int);
-void write_port(unsigned int, unsigned int);
+int readPort(unsigned int);
+void writePort(unsigned int, unsigned int);
 
 #ifdef __cplusplus
 }
@@ -26,7 +24,7 @@ public:
   void Initialize(void)
     {
         /* 0xFD is 11111101 - enables only IRQ1 (keyboard)*/
-        write_port(0x21 , 0xFD);
+        writePort(0x21 , 0xFD);
     }
 };
 

@@ -5,9 +5,11 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
+#include <handlers.h>
+
 #define IDT_SIZE 256
 
-extern void read_port(), write_port(), load_idt(), keyboard_handler();
+extern void load_idt(), keyboard_handler();
 
 struct IDT_entry {
     unsigned short int offset_lowerbits;
@@ -38,24 +40,24 @@ void EnableIDT(void) {
     // Data     0x21    0xA1
 
     // Initialize
-    write_port(0x20 , 0x11);
-    write_port(0xA0 , 0x11);
+    writePort(0x20 , 0x11);
+    writePort(0xA0 , 0x11);
 
     // Remap
-    write_port(0x21 , 0x20);
-    write_port(0xA1 , 0x28);
+    writePort(0x21 , 0x20);
+    writePort(0xA1 , 0x28);
 
     // Cascade
-    write_port(0x21 , 0x00);
-    write_port(0xA1 , 0x00);
+    writePort(0x21 , 0x00);
+    writePort(0xA1 , 0x00);
 
     // Info
-    write_port(0x21 , 0x01);
-    write_port(0xA1 , 0x01);
+    writePort(0x21 , 0x01);
+    writePort(0xA1 , 0x01);
 
     // Mask interrupts
-    write_port(0x21 , 0xff);
-    write_port(0xA1 , 0xff);
+    writePort(0x21 , 0xff);
+    writePort(0xA1 , 0xff);
 
     // Fill descriptor
     idt_address = (unsigned long)IDT;

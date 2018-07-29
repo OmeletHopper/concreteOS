@@ -7,8 +7,8 @@
 
 bits 32                     ; 32 Bit code
 
-global read_port
-global write_port
+global readPort
+global writePort
 global gdt_flush     ; Allows the C code to link to this
 global load_idt
 global keyboard_handler
@@ -16,12 +16,12 @@ global keyboard_handler
 extern gp            ; Says that '_gp' is in another file
 extern keyboardHandlerMain
 
-read_port:
+readPort:
 mov edx, [esp + 4]
 in al, dx
 ret
 
-write_port:
+writePort:
 mov   edx, [esp + 4]
 mov   al, [esp + 4 + 4]
 out   dx, al

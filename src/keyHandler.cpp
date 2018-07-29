@@ -17,15 +17,15 @@ extern "C" void keyboardHandlerMain(void)
   unsigned char status;
 
   /* Write EOI */
-  write_port(0x20, 0x20);
+  writePort(0x20, 0x20);
 
-  status = read_port(KEYBOARD_STATUS_PORT);
+  status = readPort(KEYBOARD_STATUS_PORT);
 
   /* Lowest bit of status will be set if buffer is not empty */
   if(status & 0x01) {
     if(keyCode < 0) return;
 
-    keyCode = read_port(KEYBOARD_DATA_PORT);
+    keyCode = readPort(KEYBOARD_DATA_PORT);
     switch(keyCode)
     {
       case LSHIFT_DOWN:
