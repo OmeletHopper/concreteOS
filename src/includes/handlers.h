@@ -1,20 +1,24 @@
 //
-//  handlers.hpp
+//  handlers.h
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#ifndef CoreHandlers_h
-#define CoreHandlers_h
-#endif /* CoreHandlers_h */
-
 #include <stdarg.h>
 
-extern "C" int read_port(unsigned int);
-extern "C" void write_port(unsigned int, unsigned int);
+#ifndef handlers_h
+#define handlers_h
 
-using namespace std;
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int read_port(unsigned int);
+void write_port(unsigned int, unsigned int);
+
+#ifdef __cplusplus
+}
 
 class KeyboardHandler {
 
@@ -27,3 +31,6 @@ public:
 };
 
 static KeyboardHandler KeyboardHandler;
+#endif
+
+#endif /* handlers_h */
