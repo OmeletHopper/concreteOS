@@ -15,17 +15,17 @@ extern "C" {
 #endif
 
 extern unsigned short ColorCode;
-extern char* VideoPointer;
+extern char *VideoPointer;
 extern int VideoPosition;
 
 void newLine();
 void refreshCursor();
 void scroll();
 void clearScreen();
-void printMsg(const char*);
-void printErr(const char*);
-void print(const char*);
-void printLn(const char*);
+void printMsg(const char *);
+void printErr(const char *);
+void print(const char *);
+void printLn(const char *);
 
 #ifdef __cplusplus
 }
