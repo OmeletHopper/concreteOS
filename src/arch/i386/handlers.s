@@ -9,11 +9,11 @@ bits 32                     ; 32 Bit code
 
 global readPort
 global writePort
-global gdt_flush     ; Allows the C code to link to this
+global gdtFlush	; Allows the C code to link to this
 global load_idt
 global keyboard_handler
 
-extern gp            ; Says that '_gp' is in another file
+extern GdtPtr	; Says that '_gp' is in another file
 extern keyboardHandlerMain
 
 readPort:
@@ -27,8 +27,8 @@ mov   al, [esp + 4 + 4]
 out   dx, al
 ret
 
-gdt_flush:
-lgdt [gp]        ; Load the GDT with our '_gp' which is a special pointer
+gdtFlush:
+lgdt [GdtPtr]        ; Load the GDT with our '_gp' which is a special pointer
 mov ax, 0x10      ; 0x10 is the offset in the GDT to our data segment
 mov ds, ax
 mov es, ax
