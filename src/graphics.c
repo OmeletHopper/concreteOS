@@ -5,135 +5,78 @@
 //  Created by Jonathan Archer on 10/12/17.
 //
 
-#include <stdarg.h>
 #include <graphics.h>
-#include <handlers.h>
 
-char *videoBaseAddress = (char*)0xb8000;               // Video buffer start address
-unsigned int videoPosition = 0;                    // Our position
-unsigned int colorCode = 0x07;         // Colorcode
-unsigned int j, i, x, y = 0;                 // 'Temp' variables
+unsigned short ColorCode = 0x07;
+char *VideoPointer = (char *)0xb8000; // Video buffer start address
+int VideoPosition = 0;                // Our position
 
-void Newline(void) {
+void newLine() { VideoPosition += (160 - VideoPosition % (160)); }
 
-    videoPosition = videoPosition + (160 - videoPosition % (160));
+void refreshCursor() {
+  unsigned short position = VideoPosition / 2;
+
+  writePort(0x3D4, 0x0F);
+  writePort(0x3D5, (unsigned char)(position & 0xFF));
+
+  writePort(0x3D4, 0x0E);
+  writePort(0x3D5, (unsigned char)((position >> 8) & 0xFF));
+}
+
+void scroll() {
+  if (VideoPosition <= 160)
     return;
+
+  for (int i = 0; i < 25; i++)
+    for (int j = 0; j < 160; j++)
+      VideoPointer[i * 160 + j] = VideoPointer[(i + 1) * 160 + j];
+  VideoPosition -= 160;
 }
 
-void UpdateCursor(void) {
-
-    unsigned short position = videoPosition / 2;
-
-    write_port(0x3D4, 0x0F);
-    write_port(0x3D5, (unsigned char)(position&0xFF));
-
-    write_port(0x3D4, 0x0E);
-    write_port(0x3D5, (unsigned char)((position>>8)&0xFF));
-
+void clearScreen() {
+  int j = 0;
+  while (j < 80 * 25 * 2) {
+    VideoPointer[j] = ' ';      // Empty character
+    VideoPointer[j + 1] = 0x07; // Attribute for black background
+    j += 2;
+  }
+  VideoPosition = 0;
 }
 
-void Scroll(void) {
-
-    if (videoPosition <= 160) {
-        return;
-    }
-    for(i = 0; i < 25; i++){
-        for (j = 0; j < 160; j++){
-            videoBaseAddress[i * 160 + j] = videoBaseAddress[(i + 1) * 160 + j];
-        }
-    }
-    videoPosition = videoPosition - 160;
-    return;
+void printMsg(const char *String) {
+  ColorCode = 0x02;
+  print("[ OK ] ");
+  ColorCode = 0x07;
+  print(String);
+  newLine();
 }
 
-void ClearConsole(void) {
+void printErr(const char *String) {
+  ColorCode = 0x04;
+  print("[ ERROR ] ");
+  ColorCode = 0x07;
+  print(String);
+  newLine();
+}
 
-
-        j = 0;
-        while(j < 80 * 25 * 2) {
-            videoBaseAddress[j] = ' ';                    // Empty character
-            videoBaseAddress[j+1] = 0x07;                 // Attribute for black background
-            j = j + 2;
-        }
-    videoPosition = 0;
-        return;
+void print(const char *str) {
+  if (VideoPosition >= 3840)
+    scroll();
+  int j = 0;
+  while (str[j] != '\0') { // While not terminating
+    if (str[j] == '\n') {
+      newLine();
+      j++;
+    } else {
+      VideoPointer[VideoPosition] = str[j];
+      VideoPointer[VideoPosition + 1] = ColorCode;
+      j++;
+      VideoPosition += 2;
     }
+  }
+}
 
-
-void PrintMessage(const char * str) {
-        colorCode = 0x02;
-        Print("[ OK ] ");
-        colorCode = 0x07;
-        j = 0;
-        while(str[j] != '\0') {                             // While not terminating character
-
-            if (str[j] == '\n') { Newline(); j++; }
-            else {
-                videoBaseAddress[videoPosition] = str[j];
-                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
-                ++j;                                            // Increment
-                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
-            }
-        }
-        Newline();
-        return;
-    }
-
-
-void PrintError(const char * str) {
-        colorCode = 0x04;
-        Print("[ ERROR ] ");
-        colorCode = 0x07;
-        j = 0;
-        while(str[j] != '\0') {                             // While not terminating character
-
-            if (str[j] == '\n') { Newline(); j++; }
-            else {
-                videoBaseAddress[videoPosition] = str[j];
-                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
-                ++j;                                            // Increment
-                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
-            }
-        }
-        Newline();
-        return;
-    }
-
-
-void Print(const char * str) {
-
-        if(videoPosition >= 3840) { Scroll(); }
-
-        j = 0;
-        while(str[j] != '\0') {                             // While not terminating character
-
-            if (str[j] == '\n') { Newline(); j++; }
-            else {
-                videoBaseAddress[videoPosition] = str[j];
-                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
-                ++j;                                            // Increment
-                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
-            }
-        }
-        return;
-    }
-
-void PrintLn(const char * str) {
-
-        if(videoPosition >= 3840) { Scroll(); }
-
-        j = 0;
-        while(str[j] != '\0') {                             // While not terminating character
-
-            if (str[j] == '\n') { Newline(); j++; }
-            else {
-                videoBaseAddress[videoPosition] = str[j];
-                videoBaseAddress[videoPosition+1] = colorCode;     // Color attribute
-                ++j;                                            // Increment
-                videoPosition = videoPosition + 2;            // Also increment, count for attribute byte
-            }
-
-        }
-        Newline();
-        return;
-    }
+void printLn(const char *String) {
+  print(String);
+  newLine();
+}

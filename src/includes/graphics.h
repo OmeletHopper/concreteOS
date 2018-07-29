@@ -5,6 +5,8 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
+#include <handlers.h>
+
 #ifndef graphics_h
 #define graphics_h
 
@@ -12,24 +14,21 @@
 extern "C" {
 #endif
 
-extern unsigned int colorCode;
-extern unsigned int videoPosition;
-extern char * videoBaseAddress;
-extern unsigned int i;
-extern unsigned int j;
+extern unsigned short ColorCode;
+extern char* VideoPointer;
+extern int VideoPosition;
 
-void Newline();
-void UpdateCursor();
-void Scroll();
-void ClearConsole();
-void PrintMessage(const char * str);
-void PrintError(const char * str);
-void PrintOne(const char * str);
-void Print(const char * str);
-void PrintLn(const char * str);
+void newLine();
+void refreshCursor();
+void scroll();
+void clearScreen();
+void printMsg(const char*);
+void printErr(const char*);
+void print(const char*);
+void printLn(const char*);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // Defines CoreVideo_h
+#endif
