@@ -41,7 +41,7 @@ extern "C" void keyboardHandlerMain(void)
     }
 
     if((keyCode & 128) == 128) return; // If released.
-    if(videoPosition >= 3840) { CoreVideo.Scroll(); }
+    if(videoPosition >= 3840) { Scroll(); }
 
     KEY.Code      = keyCode;
     KEY.State     = caseState;

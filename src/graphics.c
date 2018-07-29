@@ -1,26 +1,26 @@
 //
-//  graphics.cpp
+//  graphics.c
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/12/17.
 //
 
 #include <stdarg.h>
-#include <graphics.hpp>
-#include <handlers.hpp>
+#include <graphics.h>
+#include <handlers.h>
 
 char *videoBaseAddress = (char*)0xb8000;               // Video buffer start address
 unsigned int videoPosition = 0;                    // Our position
 unsigned int colorCode = 0x07;         // Colorcode
 unsigned int j, i, x, y = 0;                 // 'Temp' variables
 
-void CoreVideo::Newline(void) {
+void Newline(void) {
 
     videoPosition = videoPosition + (160 - videoPosition % (160));
     return;
 }
 
-void CoreVideo::UpdateCursor(void) {
+void UpdateCursor(void) {
 
     unsigned short position = videoPosition / 2;
 
@@ -32,7 +32,7 @@ void CoreVideo::UpdateCursor(void) {
 
 }
 
-void CoreVideo::Scroll(void) {
+void Scroll(void) {
 
     if (videoPosition <= 160) {
         return;
@@ -46,7 +46,7 @@ void CoreVideo::Scroll(void) {
     return;
 }
 
-void CoreVideo::ClearConsole(void) {
+void ClearConsole(void) {
 
 
         j = 0;
@@ -60,7 +60,7 @@ void CoreVideo::ClearConsole(void) {
     }
 
 
-void CoreVideo::PrintMessage(const char * str) {
+void PrintMessage(const char * str) {
         colorCode = 0x02;
         Print("[ OK ] ");
         colorCode = 0x07;
@@ -80,7 +80,7 @@ void CoreVideo::PrintMessage(const char * str) {
     }
 
 
-void CoreVideo::PrintError(const char * str) {
+void PrintError(const char * str) {
         colorCode = 0x04;
         Print("[ ERROR ] ");
         colorCode = 0x07;
@@ -100,7 +100,7 @@ void CoreVideo::PrintError(const char * str) {
     }
 
 
-void CoreVideo::Print(const char * str) {
+void Print(const char * str) {
 
         if(videoPosition >= 3840) { Scroll(); }
 
@@ -118,7 +118,7 @@ void CoreVideo::Print(const char * str) {
         return;
     }
 
-void CoreVideo::PrintLn(const char * str) {
+void PrintLn(const char * str) {
 
         if(videoPosition >= 3840) { Scroll(); }
 

@@ -9,35 +9,35 @@
 
 extern "C" void CoreBoot(void)
 {
-  CoreVideo.ClearConsole();
+  ClearConsole();
 
-  CoreVideo.Print("concreteOS ");
-  CoreVideo.Print(version); // Print version
-  CoreVideo.Print("-");
-  CoreVideo.Print(build_number);
-  CoreVideo.Print(" starting boot process on ");
-  CoreVideo.Print(DetectCPU.VendorString());
-  CoreVideo.Print(" CPU.\n");
+  Print("concreteOS ");
+  Print(version); // Print version
+  Print("-");
+  Print(build_number);
+  Print(" starting boot process on ");
+  Print(DetectCPU.VendorString());
+  Print(" CPU.\n");
 
-  CoreVideo.PrintLn("concreteOS (C) Jonathan Archer 2018.\n");
+  PrintLn("concreteOS (C) Jonathan Archer 2018.\n");
 
   EnableGDT();  // Enable our GDT
-  CoreVideo.PrintMessage("Global Descriptor Table initialized.");
+  PrintMessage("Global Descriptor Table initialized.");
 
   EnableIDT();  // Enable our IDT
-  CoreVideo.PrintMessage("Interrupt Descriptor Table initialized.");
+  PrintMessage("Interrupt Descriptor Table initialized.");
 
   KeyboardHandler.Initialize(); // Enable keyboard
-  CoreVideo.PrintMessage("Keyboard driver initialized.");
+  PrintMessage("Keyboard driver initialized.");
 
-  CoreVideo.PrintError("Kernel incomplete, dropping to internal shell."); // Development not done
+  PrintError("Kernel incomplete, dropping to internal shell."); // Development not done
 
   Input.addKeySetting = 1; // Set variable to 1, prints text to screen, writes to buffer, and passes to internal shell.
-  CoreVideo.PrintMessage("Keyboard input enabled.");
+  PrintMessage("Keyboard input enabled.");
 
-  CoreVideo.Newline();
+  Newline();
   CoreTerminal.OpenShell(); // Opens shell and prints a > as well as sets backspace area
-  CoreVideo.UpdateCursor();
+  UpdateCursor();
 
   while(1); // Code should not return
   return;

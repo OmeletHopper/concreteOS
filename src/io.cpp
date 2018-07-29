@@ -25,7 +25,7 @@ void io::addKey(struct typedCharacter inKey)
     keyBufferPosition = 0, keyBufferSize = 0;
     CoreTerminal.RunCommand(keyBuffer);  // Runs given input
     CoreTerminal.OpenShell(); // Re-opens shell
-    CoreVideo.UpdateCursor();
+    UpdateCursor();
     return;
   }
   switch(inKey.Code) {
@@ -38,21 +38,21 @@ void io::addKey(struct typedCharacter inKey)
     videoBaseAddress[videoPosition] = ' ';
     keyBufferPosition--, keyBufferSize--;
     keyBuffer[keyBufferPosition] = ' ';
-    CoreVideo.UpdateCursor();
+    UpdateCursor();
     return;
 
   case LEFT:
     if(videoPosition <= OpenedTerminal) return;
     videoPosition = videoPosition - 2;
     keyBufferPosition--;
-    CoreVideo.UpdateCursor();
+    UpdateCursor();
     return;
 
   case RIGHT:
     if(keyBufferPosition >= keyBufferSize) return;
     videoPosition = videoPosition + 2;
     keyBufferPosition++;
-    CoreVideo.UpdateCursor();
+    UpdateCursor();
     return;
 
   case UP:
@@ -68,8 +68,8 @@ void io::addKey(struct typedCharacter inKey)
     keyBufferSize = lastKeyBufferSize;
     keyBufferPosition = keyBufferSize;
     j = 0; i = 0;
-    CoreVideo.Print(lastKeyBuffer);
-    CoreVideo.UpdateCursor();
+    Print(lastKeyBuffer);
+    UpdateCursor();
     return;
   }
 
@@ -79,7 +79,7 @@ void io::addKey(struct typedCharacter inKey)
 
   videoBaseAddress[videoPosition++] = keyMap[inKey.Code + (90 * inKey.State)];
   videoBaseAddress[videoPosition++] = 0x07;
-  CoreVideo.UpdateCursor();
+  UpdateCursor();
 
   return;
 }
