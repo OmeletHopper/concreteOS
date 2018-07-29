@@ -33,7 +33,10 @@ all: $(OBJFILES)
 	@echo Done building version $(VERSION).
 
 format:
-	clang-format -style=file -i -fallback-style=none $(wildcard $(SRC)/*.c) $(wildcard $(SRC)/*/*.c) $(wildcard $(SRC)/*.cpp) $(wildcard $(SRC)/*/*.cpp)
+	clang-format -style=file -i -fallback-style=none \
+	$(wildcard $(SRC)/*.c) $(wildcard $(SRC)/*/*.c) \
+	$(wildcard $(SRC)/*.cpp) $(wildcard $(SRC)/*/*.cpp) \
+	$(wildcard $(SRC)/*/*.h) $(wildcard $(SRC)/*/*.hpp)
 
 test: all
 	qemu-system-i386 -kernel $(KNAME)
