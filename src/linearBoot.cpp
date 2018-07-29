@@ -7,38 +7,39 @@
 
 #include <linearBoot.hpp>
 
-extern "C" void CoreBoot(void)
-{
-  ClearConsole();
+extern "C" void CoreBoot() {
+  clearScreen();
 
-  Print("concreteOS ");
-  Print(version); // Print version
-  Print("-");
-  Print(build_number);
-  Print(" starting boot process on ");
-  Print(DetectCPU.VendorString());
-  Print(" CPU.\n");
+  print("concreteOS ");
+  print(version); // Print version
+  print("-");
+  print(build_number);
+  print(" starting boot process on ");
+  print(VendorString());
+  print(" CPU.\n");
 
-  PrintLn("concreteOS (C) Jonathan Archer 2018.\n");
+  printLn("concreteOS (C) Jonathan Archer 2018.\n");
 
-  EnableGDT();  // Enable our GDT
-  PrintMessage("Global Descriptor Table initialized.");
+  gdtEnable(); // Enable our GDT
+  printMsg("Global Descriptor Table initialized.");
 
-  EnableIDT();  // Enable our IDT
-  PrintMessage("Interrupt Descriptor Table initialized.");
+  idtEnable(); // Enable our IDT
+  printMsg("Interrupt Descriptor Table initialized.");
 
   KeyboardHandler.Initialize(); // Enable keyboard
-  PrintMessage("Keyboard driver initialized.");
+  printMsg("Keyboard driver initialized.");
 
-  PrintError("Kernel incomplete, dropping to internal shell."); // Development not done
+  printErr("Kernel incomplete, dropping to internal shell.");
 
-  Input.addKeySetting = 1; // Set variable to 1, prints text to screen, writes to buffer, and passes to internal shell.
-  PrintMessage("Keyboard input enabled.");
+  Input.AddKeySetting = 1; // Set variable to 1, prints text to screen, writes
+                           // to buffer, and passes to internal shell.
+  printMsg("Keyboard input enabled.");
 
-  Newline();
-  CoreTerminal.OpenShell(); // Opens shell and prints a > as well as sets backspace area
-  UpdateCursor();
+  newLine();
+  CoreTerminal.openShell();
+  refreshCursor();
 
-  while(1); // Code should not return
+  while (1)
+    ; // Code should not return
   return;
 }

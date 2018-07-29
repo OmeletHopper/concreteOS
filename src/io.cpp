@@ -6,80 +6,84 @@
 //
 
 #include <input.hpp>
-#include <linearBoot.hpp>
 #include <keyboard.h>
+#include <linearBoot.hpp>
 
-char * keyBuffer          = 0x00;
-char * lastKeyBuffer      = 0x00;
-int keyBufferSize         = 0;
-int lastKeyBufferSize     = 0;
-int keyBufferPosition     = 0;
-int io::addKeySetting     = 0;
+char *keyBuffer = 0x00;
+char *lastKeyBuffer = 0x00;
+int keyBufferSize = 0;
+int lastKeyBufferSize = 0;
+int keyBufferPosition = 0;
+int io::AddKeySetting = 0;
 
-void io::addKey(struct typedCharacter inKey)
-{
-  if(addKeySetting != 1) return;
-  if(inKey.Code == ENTER) {
+void io::addKey(struct TypedCharacter inKey) {
+  if (AddKeySetting != 1)
+    return;
+  if (inKey.Code == ENTER) {
     keyBuffer[keyBufferSize] = '\0';
     lastKeyBuffer = keyBuffer, lastKeyBufferSize = keyBufferSize;
     keyBufferPosition = 0, keyBufferSize = 0;
-    CoreTerminal.RunCommand(keyBuffer);  // Runs given input
-    CoreTerminal.OpenShell(); // Re-opens shell
-    UpdateCursor();
+    CoreTerminal.runCommand(keyBuffer); // Runs given input
+    CoreTerminal.openShell();           // Re-opens shell
+    refreshCursor();
     return;
   }
-  switch(inKey.Code) {
+  switch (inKey.Code) {
 
   case BACKSPACE:
-    if(videoPosition <= OpenedTerminal) return;
-    videoPosition--;
-    videoBaseAddress[videoPosition] = 0x07;
-    videoPosition--;
-    videoBaseAddress[videoPosition] = ' ';
+    if (VideoPosition <= OpenedTerminal)
+      return;
+    VideoPosition--;
+    VideoPointer[VideoPosition] = 0x07;
+    VideoPosition--;
+    VideoPointer[VideoPosition] = ' ';
     keyBufferPosition--, keyBufferSize--;
     keyBuffer[keyBufferPosition] = ' ';
-    UpdateCursor();
+    refreshCursor();
     return;
 
   case LEFT:
-    if(videoPosition <= OpenedTerminal) return;
-    videoPosition = videoPosition - 2;
+    if (VideoPosition <= OpenedTerminal)
+      return;
+    VideoPosition = VideoPosition - 2;
     keyBufferPosition--;
-    UpdateCursor();
+    refreshCursor();
     return;
 
   case RIGHT:
-    if(keyBufferPosition >= keyBufferSize) return;
-    videoPosition = videoPosition + 2;
+    if (keyBufferPosition >= keyBufferSize)
+      return;
+    VideoPosition = VideoPosition + 2;
     keyBufferPosition++;
-    UpdateCursor();
+    refreshCursor();
     return;
 
   case UP:
-    j = 0;
-    videoPosition = OpenedTerminal;
-    while(j <= keyBufferSize) {
-      videoBaseAddress[videoPosition++] = ' ';
-      videoBaseAddress[videoPosition++] = 0x07;
+    int j = 0;
+    VideoPosition = OpenedTerminal;
+    while (j <= keyBufferSize) {
+      VideoPointer[VideoPosition++] = ' ';
+      VideoPointer[VideoPosition++] = 0x07;
       j++;
     }
-    videoPosition = OpenedTerminal;
+    VideoPosition = OpenedTerminal;
     keyBuffer = lastKeyBuffer;
     keyBufferSize = lastKeyBufferSize;
     keyBufferPosition = keyBufferSize;
-    j = 0; i = 0;
-    Print(lastKeyBuffer);
-    UpdateCursor();
+    j = 0;
+    print(lastKeyBuffer);
+    refreshCursor();
     return;
   }
 
-  keyBuffer[keyBufferPosition] = keyMap[inKey.Code + (90 * inKey.State)];
-  if(keyBufferPosition == keyBufferSize) keyBufferSize++;
+  keyBuffer[keyBufferPosition] = KeyMap[inKey.Code + (90 * inKey.State)];
+  if (keyBufferPosition == keyBufferSize)
+    keyBufferSize++;
   keyBufferPosition++;
 
-  videoBaseAddress[videoPosition++] = keyMap[inKey.Code + (90 * inKey.State)];
-  videoBaseAddress[videoPosition++] = 0x07;
-  UpdateCursor();
+  VideoPointer[VideoPosition++] = KeyMap[inKey.Code + (90 * inKey.State)];
+  VideoPointer[VideoPosition++] = 0x07;
+  refreshCursor();
 
   return;
 }

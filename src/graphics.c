@@ -45,7 +45,7 @@ void clearScreen() {
 
 void printMsg(const char *String) {
   ColorCode = 0x02;
-  print("[ OK ] ");
+  print("{ OKAY } ");
   ColorCode = 0x07;
   print(String);
   newLine();
@@ -53,7 +53,7 @@ void printMsg(const char *String) {
 
 void printErr(const char *String) {
   ColorCode = 0x04;
-  print("[ ERROR ] ");
+  print("{ ERROR } ");
   ColorCode = 0x07;
   print(String);
   newLine();
