@@ -13,11 +13,9 @@ extern unsigned int OpenedTerminal;
 class CoreTerminal {
 
 public:
-
-    void CommandError(const char * str);
-    void OpenShell(void);
-    void RunCommand(char * Command);
-
+  void commandError(const char *);
+  void openShell();
+  void runCommand(char *);
 };
 
 static CoreTerminal CoreTerminal;

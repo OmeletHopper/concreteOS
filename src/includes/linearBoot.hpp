@@ -5,17 +5,17 @@
 //  Created by Jonathan Archer on 10/16/17.
 //
 
-#include <graphics.h>   // Video 80x25
-#include <handlers.h>   // 'Driver' related
-#include <shell.hpp>      // Shell stuff
-#include <CPU.hpp>        // So we can detect our CPU
-#include <input.hpp>      // Get input from keyboard
-#include <keyboard.h>     // Keyboard managing
+#include <cpu.h>      // So we can detect our CPU
+#include <graphics.h> // Video 80x25
+#include <handlers.h> // 'Driver' related
+#include <input.hpp>  // Get input from keyboard
+#include <keyboard.h> // Keyboard managing
+#include <shell.hpp>  // Shell stuff
 
 #ifndef linearBoot_hpp
 #define linearBoot_hpp
 
-extern "C" void EnableGDT(), EnableIDT();
+extern "C" void gdtEnable(), idtEnable();
 extern "C" unsigned char keyCode;
 
-#endif /* linearBoot_hpp */
+#endif

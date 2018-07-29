@@ -8,16 +8,14 @@
 #ifndef input_hpp
 #define input_hpp
 
-extern struct typedCharacter KEY;
+extern struct TypedCharacter KEY;
 
-class io
-{
+class io {
 public:
-
-    void addKey(struct typedCharacter KEY);
-    static int addKeySetting;
+  void addKey(struct TypedCharacter KEY);
+  static int AddKeySetting;
 };
 
-static io Input;  // Sets up our input class
+static io Input; // Sets up our input class
 
-#endif /* input_hpp */
+#endif

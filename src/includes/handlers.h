@@ -19,16 +19,12 @@ void writePort(unsigned int, unsigned int);
 }
 
 class KeyboardHandler {
-
 public:
-  void Initialize(void)
-    {
-        /* 0xFD is 11111101 - enables only IRQ1 (keyboard)*/
-        writePort(0x21 , 0xFD);
-    }
+  void Initialize() { writePort(0x21, 0xFD); }
 };
 
 static KeyboardHandler KeyboardHandler;
+
 #endif
 
-#endif /* handlers_h */
+#endif
