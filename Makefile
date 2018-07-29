@@ -26,11 +26,14 @@ OBJFILES	:= $(patsubst %.s, %.o, \
 		   $(patsubst %.cpp, %.o, \
 		   $(SRCFILES))))
 
-.PHONY: all test clean
+.PHONY: all format test clean
 
 all: $(OBJFILES)
 	$(LD) $(LDFLAGS) $(OBJFILES)
 	@echo Done building version $(VERSION).
+
+format:
+	clang-format -style=file -i -fallback-style=none $(wildcard $(SRC)/*.c) $(wildcard $(SRC)/*/*.c) $(wildcard $(SRC)/*.cpp) $(wildcard $(SRC)/*/*.cpp)
 
 test: all
 	qemu-system-i386 -kernel $(KNAME)
