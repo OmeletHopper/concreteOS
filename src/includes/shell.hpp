@@ -13,7 +13,6 @@ extern unsigned int OpenedTerminal;
 class CoreTerminal {
 
 public:
-  void commandError(const char *);
   void openShell();
   void runCommand(char *);
 };
