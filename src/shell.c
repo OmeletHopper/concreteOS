@@ -1,12 +1,12 @@
 //
-//  shell.cpp
+//  shell.c
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/12/17.
 //
 
 #include <graphics.h>
-#include <shell.hpp>
+#include <shell.h>
 
 unsigned int OpenedTerminal;
 unsigned char *toEcho = 0x00;
@@ -29,18 +29,18 @@ int strcmp(char string1[], char string2[]) {
 }
 
 void strcpy(char dest[], const char source[]) {
-  for (int i = 0; dest[i] = source[i]; i++)
+  for (int i = 0; (dest[i] = source[i]); i++)
     if (dest[i] == '\0')
       break;
 }
 
 void strncpy(char dest[], const char source[], int limit) {
-  for (int i = 0; dest[i] = source[i]; i++)
+  for (int i = 0; (dest[i] = source[i]); i++)
     if (dest[i] == '\0' || i == limit)
       break;
 }
 
-void CoreTerminal::openShell() {
+void openShell() {
   ColorCode = 0x02;
   print("> ");
   if (VideoPosition >= 3840)
@@ -50,7 +50,7 @@ void CoreTerminal::openShell() {
   return;
 }
 
-void CoreTerminal::runCommand(char *Command) {
+void runCommand(char *Command) {
   while (Command[0] == ' ')
     Command++;
 
