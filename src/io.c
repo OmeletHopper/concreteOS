@@ -5,18 +5,19 @@
 //  Created by Jonathan Archer on 2/18/18.
 //
 
-#include <input.hpp>
+#include <graphics.h>
+#include <input.h>
 #include <keyboard.h>
-#include <linearBoot.hpp>
+#include <shell.h>
 
 char *keyBuffer = 0x00;
 char *lastKeyBuffer = 0x00;
 int keyBufferSize = 0;
 int lastKeyBufferSize = 0;
 int keyBufferPosition = 0;
-int io::AddKeySetting = 0;
+int AddKeySetting = 0;
 
-void io::addKey(struct TypedCharacter inKey) {
+void addKey(struct TypedCharacter inKey) {
   if (AddKeySetting != 1)
     return;
   if (inKey.Code == ENTER) {
@@ -28,6 +29,7 @@ void io::addKey(struct TypedCharacter inKey) {
     refreshCursor();
     return;
   }
+  int j = 0;
   switch (inKey.Code) {
 
   case BACKSPACE:
@@ -59,7 +61,7 @@ void io::addKey(struct TypedCharacter inKey) {
     return;
 
   case UP:
-    int j = 0;
+    j = 0;
     VideoPosition = OpenedTerminal;
     while (j <= keyBufferSize) {
       VideoPointer[VideoPosition++] = ' ';

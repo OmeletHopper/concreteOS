@@ -1,13 +1,14 @@
 //
-//  linearBoot.cpp
+//  linearBoot.c
 //  concreteOS
 //
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <linearBoot.hpp>
+#include <input.h>
+#include <linearBoot.h>
 
-extern "C" void CoreBoot() {
+void CoreBoot() {
   clearScreen();
 
   print("concreteOS ");
@@ -26,13 +27,13 @@ extern "C" void CoreBoot() {
   idtEnable(); // Enable our IDT
   printMsg("Interrupt Descriptor Table initialized.\n");
 
-  KeyboardHandler.Initialize(); // Enable keyboard
+  writePort(0x21, 0xFD); // Enable keyboard
   printMsg("Keyboard driver initialized.\n");
 
   printErr("Kernel incomplete, dropping to internal shell.\n");
 
-  Input.AddKeySetting = 1; // Set variable to 1, prints text to screen, writes
-                           // to buffer, and passes to internal shell.
+  AddKeySetting = 1; // Set variable to 1, prints text to screen, writes
+                     // to buffer, and passes to internal shell.
   printMsg("Keyboard input enabled.\n");
 
   newLine();

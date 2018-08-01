@@ -5,14 +5,15 @@
 //  Created by Jonathan Archer on 10/10/17.
 //
 
-#include <linearBoot.hpp>
+#include <graphics.h>
+#include <keyboard.h>
 
 int caseState = 0;
 unsigned char keyCode = 0x00;
 
 struct TypedCharacter KEY;
 
-extern "C" void keyboardHandlerMain(void) {
+void keyboardHandlerMain() {
   unsigned char status;
 
   /* Write EOI */
@@ -52,7 +53,7 @@ extern "C" void keyboardHandlerMain(void) {
 
     KEY.Code = keyCode;
     KEY.State = caseState;
-    Input.addKey(KEY);
+    addKey(KEY);
     return;
   }
 }

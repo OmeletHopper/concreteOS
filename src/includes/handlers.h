@@ -17,14 +17,6 @@ void writePort(unsigned int, unsigned int);
 
 #ifdef __cplusplus
 }
-
-class KeyboardHandler {
-public:
-  void Initialize() { writePort(0x21, 0xFD); }
-};
-
-static KeyboardHandler KeyboardHandler;
-
 #endif
 
 #endif
