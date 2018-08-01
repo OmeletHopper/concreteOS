@@ -36,7 +36,7 @@ extern "C" void CoreBoot() {
   printMsg("Keyboard input enabled.\n");
 
   newLine();
-  CoreTerminal.openShell();
+  openShell();
   refreshCursor();
 
   while (1)

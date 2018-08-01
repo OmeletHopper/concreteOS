@@ -10,7 +10,7 @@
 #include <handlers.h> // 'Driver' related
 #include <input.hpp>  // Get input from keyboard
 #include <keyboard.h> // Keyboard managing
-#include <shell.hpp>  // Shell stuff
+#include <shell.h>  // Shell stuff
 
 #ifndef linearBoot_hpp
 #define linearBoot_hpp

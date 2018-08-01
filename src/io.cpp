@@ -23,8 +23,8 @@ void io::addKey(struct TypedCharacter inKey) {
     keyBuffer[keyBufferSize] = '\0';
     lastKeyBuffer = keyBuffer, lastKeyBufferSize = keyBufferSize;
     keyBufferPosition = 0, keyBufferSize = 0;
-    CoreTerminal.runCommand(keyBuffer); // Runs given input
-    CoreTerminal.openShell();           // Re-opens shell
+    runCommand(keyBuffer); // Runs given input
+    openShell();           // Re-opens shell
     refreshCursor();
     return;
   }
