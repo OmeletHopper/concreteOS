@@ -48,7 +48,6 @@ void printMsg(const char *String) {
   print("{ OKAY } ");
   ColorCode = 0x07;
   print(String);
-  newLine();
 }
 
 void printErr(const char *String) {
@@ -56,7 +55,6 @@ void printErr(const char *String) {
   print("{ ERROR } ");
   ColorCode = 0x07;
   print(String);
-  newLine();
 }
 
 void print(const char *str) {

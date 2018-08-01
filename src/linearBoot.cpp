@@ -21,19 +21,19 @@ extern "C" void CoreBoot() {
   printLn("concreteOS (C) Jonathan Archer 2018.\n");
 
   gdtEnable(); // Enable our GDT
-  printMsg("Global Descriptor Table initialized.");
+  printMsg("Global Descriptor Table initialized.\n");
 
   idtEnable(); // Enable our IDT
-  printMsg("Interrupt Descriptor Table initialized.");
+  printMsg("Interrupt Descriptor Table initialized.\n");
 
   KeyboardHandler.Initialize(); // Enable keyboard
-  printMsg("Keyboard driver initialized.");
+  printMsg("Keyboard driver initialized.\n");
 
-  printErr("Kernel incomplete, dropping to internal shell.");
+  printErr("Kernel incomplete, dropping to internal shell.\n");
 
   Input.AddKeySetting = 1; // Set variable to 1, prints text to screen, writes
                            // to buffer, and passes to internal shell.
-  printMsg("Keyboard input enabled.");
+  printMsg("Keyboard input enabled.\n");
 
   newLine();
   CoreTerminal.openShell();
