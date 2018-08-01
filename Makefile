@@ -7,7 +7,7 @@ SRC		:= src
 CXX		:= clang -c
 CC		:= clang -c
 CFLAGS		:= -target i386-none-elf
-CFLAGS		+= -Wall -m32 -fno-stack-protector
+CFLAGS		+= -Wall -m32 -fno-stack-protector -nostdlib
 CFLAGS		+= -I $(SRC)/includes
 CFLAGS		+= -D version=\"$(VERSION)\" -D build_number=\"$(BUILD_NUMBER)\"
 CXXFLAGS	:= $(CFLAGS)
